@@ -5,6 +5,16 @@ export { colorTokens, getComponentVariant, getVariantClasses } from "./color";
 export type { ComponentVariant } from "./color";
 
 export {
+  borderRadiusTokens,
+  shadowTokens,
+  getBorderRadius,
+  getShadow,
+  getBorderRadiusClasses,
+  getShadowClasses,
+} from "./border";
+export type { BorderRadiusSize, ShadowLevel, BorderRadiusToken, ShadowToken } from "./border";
+
+export {
   fontSizeTokens,
   lineHeightTokens,
   fontWeightTokens,

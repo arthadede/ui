@@ -101,7 +101,7 @@ const LoginPage = ({
       <Card variant={variant} padding="lg" className="w-full max-w-md">
         {/* Logo and Header */}
         <div className="flex flex-col gap-7">
-          <div className="flex flex-col gap-7">
+          <div className="flex flex-col items-center gap-7">
             <Icon
               name="logo"
               size={160}
@@ -169,6 +169,7 @@ const LoginPage = ({
                 <div className="flex justify-center">
                   <InputPin
                     length={6}
+                    size="lg"
                     onChange={handlePinChange}
                     disabled={loading}
                     variant={variant}

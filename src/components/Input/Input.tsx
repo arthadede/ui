@@ -24,10 +24,11 @@ export default function Input({
   const inputTypography = getComponentTypography("input-text");
 
   const sizeClasses = getSizeClasses(size);
-  const variantClasses = getVariantClasses(variant);
-  const variantTokens = getComponentVariant(variant);
+  const inputVariant = variant === "dark" ? "input-dark" : "input-light";
+  const variantClasses = getVariantClasses(inputVariant);
+  const variantTokens = getComponentVariant(inputVariant);
 
-  const placeholderColor = variant === "dark" ? "placeholder:text-white/30" : "placeholder:text-black/60";
+  const placeholderColor = variant === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500";
 
   const inputClasses = [
     "flex-1",

@@ -21,7 +21,7 @@ export default function Button({
   ...rest
 }: ButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center rounded transition-colors focus:outline-none disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center rounded transition-colors focus:outline-none cursor-pointer disabled:cursor-not-allowed";
 
   const sizeClasses = getSizeClasses(size);
   const typographyClasses = getTypographyForSize(size);

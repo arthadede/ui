@@ -29,7 +29,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const EmailStep: Story = {
+export const Default: Story = {
   args: {
     step: 'email',
     variant: 'light',
