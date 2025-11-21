@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Icon from "../Icon/Icon";
+import { Icon } from "../Icon";
 import { getSizeClasses, getVariantClasses, type ComponentSize, type ComponentVariant } from "../../tokens";
 
 export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> & {
@@ -27,6 +27,7 @@ export default function IconButton({
     sm: "size-9",
     md: "size-10",
     lg: "size-12",
+    xl: "size-16",
   };
 
   return (

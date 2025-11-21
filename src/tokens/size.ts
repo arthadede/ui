@@ -1,4 +1,4 @@
-export type ComponentSize = "sm" | "md" | "lg";
+export type ComponentSize = "sm" | "md" | "lg" | "xl";
 
 export const sizeTokens = {
   sm: {
@@ -30,6 +30,16 @@ export const sizeTokens = {
     fontWeight: "font-semibold" as const,
     height: "h-12" as const,
     minWidth: "min-w-[180px]" as const,
+  },
+  xl: {
+    padding: "p-4" as const,
+    gap: "gap-4" as const,
+    iconSize: 32,
+    fontSize: "text-lg" as const,
+    lineHeight: "leading-7" as const,
+    fontWeight: "font-medium" as const,
+    height: "h-16" as const,
+    minWidth: "min-w-[200px]" as const,
   },
 } as const;
 

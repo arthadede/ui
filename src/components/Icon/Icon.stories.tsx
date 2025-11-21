@@ -10,7 +10,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'component'],
   argTypes: {
     name: {
       control: 'select',
@@ -47,10 +47,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Example: Story = {
+export const Default: Story = {
   args: {
     name: 'search',
     size: 'md',
-    color: 'primary',
+    color: 'secondary',
   },
 };

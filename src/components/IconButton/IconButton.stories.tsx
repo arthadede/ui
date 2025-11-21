@@ -7,7 +7,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'component'],
   argTypes: {
     variant: {
       control: 'select',
@@ -33,9 +33,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Example: Story = {
+export const Default: Story = {
   args: {
-    variant: 'primary',
+    variant: 'secondary',
     iconName: 'search',
   },
 };
