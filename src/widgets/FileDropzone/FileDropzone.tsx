@@ -35,13 +35,11 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const helperId = useId();
 
-  // Get variant and typography tokens from the token system
   const variantTokens = getComponentVariant(variant);
   const titleTypography = getTypographyForSize("lg");
   const descriptionTypography = getTypographyForSize("sm");
 
-  // Icons use contrasting variant: dark containers get light icons, light containers get dark icons
-  const iconVariant = variant === "dark" ? "light" : "dark";
+  const dropzoneIconSize = 48;
 
   const openFileDialog = useCallback(() => {
     inputRef.current?.click();
@@ -97,7 +95,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       [
         "group cursor-pointer outline-none",
         "flex w-full flex-col items-center justify-center",
-        "gap-2 p-6",
+        "gap-3 p-6",
         "rounded-lg border-2 border-dashed",
         variantTokens.border,
         variantTokens.background,
@@ -129,7 +127,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       onDrop={handleDrop}
       className={baseClass}
     >
-      <Icon name="upload" size={60} variant={iconVariant} />
+      <Icon name="cloud-upload" size={dropzoneIconSize} variant={variant} />
       <p className={`${titleTypography.className} ${variantTokens.text}`}>{title}</p>
       <p id={helperId} className={`text-center ${descriptionTypography.className} ${variantTokens.text} opacity-80`}>
         {descriptionText}

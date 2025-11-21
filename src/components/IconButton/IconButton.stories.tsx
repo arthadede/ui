@@ -37,6 +37,7 @@ const meta = {
         'notification',
         'progress',
         'upload',
+        'cloud-upload',
       ],
       description: 'Name of the icon to display',
     },

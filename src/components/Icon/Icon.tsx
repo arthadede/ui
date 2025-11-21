@@ -17,6 +17,7 @@ import CloseSvg from "./svgs/close";
 import NotificationSvg from "./svgs/notification";
 import ProgressSvg from "./svgs/progress";
 import UploadSvg from "./svgs/upload";
+import CloudUploadSvg from "./svgs/cloud-upload";
 
 type TokenSize = ComponentSize;
 type NumericSize = number;
@@ -49,6 +50,7 @@ const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>
   "notification": NotificationSvg,
   "progress": ProgressSvg,
   "upload": UploadSvg,
+  "cloud-upload": CloudUploadSvg,
 };
 
 export default function Icon({
