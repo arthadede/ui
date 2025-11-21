@@ -53,6 +53,23 @@ export type { InputPinProps } from './widgets/InputPin';
 export { FileDropzone } from './widgets/FileDropzone';
 export type { FileDropzoneProps } from './widgets/FileDropzone';
 
+// New layout and utility components
+export { Card } from './components/Card';
+export type { CardProps } from './components/Card';
+
+export { Divider } from './components/Divider';
+export type { DividerProps } from './components/Divider';
+
+export { LoadingSpinner } from './components/LoadingSpinner';
+export type { LoadingSpinnerProps } from './components/LoadingSpinner';
+
+export { InlineError } from './components/InlineError';
+export type { InlineErrorProps } from './components/InlineError';
+
+// Examples
+export { LoginPage } from './examples/LoginPage';
+export type { LoginPageProps, LoginPageStep } from './examples/LoginPage';
+
 // Utility functions
 export { getInitial, getBucket } from './utils/avatar';
 export { bytesToString, acceptsToExtensions } from './utils/file';
