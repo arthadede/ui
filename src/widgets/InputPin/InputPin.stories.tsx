@@ -18,6 +18,11 @@ const meta = {
       control: 'object',
       description: 'Current values array',
     },
+    variant: {
+      control: 'select',
+      options: ['dark', 'light'],
+      description: 'Color variant (dark or light mode)',
+    },
     disabled: {
       control: 'boolean',
       description: 'Disable all inputs',
@@ -36,6 +41,7 @@ export const Default: Story = {
   args: {
     length: 6,
     values: ['', '', '', '', '', ''],
+    variant: 'dark',
     onChange: (values) => console.log('Input values:', values),
   },
 };

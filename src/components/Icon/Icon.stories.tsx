@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Icon from './Icon';
 import { type ComponentSize } from '../../tokens';
 
-type IconColor = "primary" | "secondary" | "transparent";
-
 const meta = {
   title: 'Components/Icon',
   component: Icon,
@@ -37,9 +35,9 @@ const meta = {
       control: { type: 'select', options: ['sm', 'md', 'lg'] as ComponentSize[] },
       description: 'Size token for the icon (sm=20px, md=24px, lg=28px)',
     },
-    color: {
-      control: { type: 'select', options: ['primary', 'secondary'] as IconColor[] },
-      description: 'Color token for the icon (primary=text-black, secondary=text-white)',
+    variant: {
+      control: { type: 'select', options: ['dark', 'light'] },
+      description: 'Color variant for the icon (dark=black text, light=white text)',
     }
   },
 } satisfies Meta<typeof Icon>;
@@ -51,6 +49,6 @@ export const Default: Story = {
   args: {
     name: 'search',
     size: 'md',
-    color: 'secondary',
+    variant: 'light',
   },
 };

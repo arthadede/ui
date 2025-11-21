@@ -21,12 +21,11 @@ import UploadSvg from "./svgs/upload";
 type TokenSize = ComponentSize;
 type NumericSize = number;
 type IconSize = TokenSize | NumericSize;
-type IconColor = "primary" | "secondary" | "transparent" | "success" | "error" | "warning" | "info";
 
 type IconProps = {
   name: string;
   size?: IconSize;
-  color?: IconColor;
+  variant?: "dark" | "light";
 };
 
 // Helper to determine if size is a token
@@ -55,7 +54,7 @@ const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>
 export default function Icon({
   name,
   size = "md",
-  color = "primary",
+  variant = "light",
 }: IconProps) {
   const IconComponent = iconMap[name];
 
@@ -66,9 +65,9 @@ export default function Icon({
   const iconSize = isTokenSize(size)
     ? getComponentSize(size).iconSize
     : size;
-  
-  const colorToken = getComponentVariant(color);
-  const iconColorClass = colorToken.text;
+
+  const variantToken = getComponentVariant(variant);
+  const iconColorClass = variantToken.text;
 
   return (
     <IconComponent

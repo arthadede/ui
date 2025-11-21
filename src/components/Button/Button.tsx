@@ -2,23 +2,20 @@
 
 import React from "react";
 import Icon from "../Icon/Icon";
-import { getSizeClasses, getVariantClasses, type ComponentSize } from "../../tokens";
+import { getSizeClasses, getVariantClasses, getTypographyForSize, type ComponentSize } from "../../tokens";
 
 export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> & {
-  label?: React.ReactNode;
   leftIcon?: string;
   rightIcon?: string;
   size?: ComponentSize;
-  variant?: "primary" | "secondary";
+  variant?: "dark" | "light";
 };
 
 export default function Button({
-  label,
   leftIcon,
   rightIcon,
   size = "md",
-  variant = "primary",
-  className = "",
+  variant = "dark",
   children,
   disabled,
   ...rest
@@ -27,6 +24,7 @@ export default function Button({
     "inline-flex items-center justify-center rounded transition-colors focus:outline-none disabled:cursor-not-allowed";
 
   const sizeClasses = getSizeClasses(size);
+  const typographyClasses = getTypographyForSize(size);
   const variantClasses = getVariantClasses(variant);
 
   const renderIcon = (iconName: string) => {
@@ -38,7 +36,7 @@ export default function Button({
           .filter(Boolean)
           .join(" ")}
       >
-        <Icon name={iconName} size={sizeClasses.iconSize} color={variant} />
+        <Icon name={iconName} size={sizeClasses.iconSize} variant={variant} />
       </span>
     );
   };
@@ -48,10 +46,8 @@ export default function Button({
       className={[
         baseClasses,
         sizeClasses.container,
-        sizeClasses.text,
-        sizeClasses.minWidth,
+        typographyClasses.className,
         variantClasses,
-        className,
       ]
         .filter(Boolean)
         .join(" ")}
@@ -59,7 +55,7 @@ export default function Button({
       {...rest}
     >
       {leftIcon && renderIcon(leftIcon)}
-      <span className="relative shrink-0">{children ?? label ?? "Button Text"}</span>
+      <span className="relative shrink-0">{children ?? "Button Text"}</span>
       {rightIcon && renderIcon(rightIcon)}
     </button>
   );

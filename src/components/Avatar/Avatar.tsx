@@ -1,12 +1,11 @@
 import React from "react";
-import { getBucket, getInitial } from "../../utils/avatar";
-import { getTypographyForSize } from "../../tokens";
-
-export type AvatarSize = "sm" | "md" | "lg" | "xl";
+import { getInitial } from "../../utils/avatar";
+import { getSizeClasses, getTypographyForSize, getComponentVariant, type ComponentSize } from "../../tokens";
 
 export type AvatarProps = {
   name?: string;
-  size?: AvatarSize;
+  size?: ComponentSize;
+  variant?: "dark" | "light";
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -14,46 +13,16 @@ export type AvatarProps = {
 export default function Avatar({
   name = "",
   size = "sm",
+  variant = "dark",
   onClick = () => {},
   className = "",
 }: AvatarProps) {
-  const bucket = getBucket(name);
   const initials = getInitial(name);
 
-  const bgPaletteCls = [
-    "bg-blue-500",
-    "bg-green-500",
-    "bg-red-500",
-    "bg-yellow-500",
-    "bg-purple-500",
-    "bg-teal-500",
-    "bg-orange-500",
-    "bg-slate-500",
-  ];
-  const textPaletteCls = [
-    "text-white", // on blue
-    "text-white", // on green
-    "text-white", // on red
-    "text-black", // on yellow
-    "text-white", // on purple
-    "text-white", // on teal
-    "text-black", // on orange
-    "text-white", // on slate
-  ];
-
-  
-  // Get typography token for avatar text based on size
+  // Get size, typography and variant tokens from the token system
+  const sizeClasses = getSizeClasses(size);
   const avatarTypography = getTypographyForSize(size);
-
-  const sizeConfig: Record<AvatarSize, string> = {
-    sm: "size-9",
-    md: "size-10",
-    lg: "size-12",
-    xl: "size-20",
-  };
-
-  const bgClass = bgPaletteCls[bucket];
-  const fgClass = textPaletteCls[bucket];
+  const variantTokens = getComponentVariant(variant);
 
   const baseClasses = "flex items-center justify-center rounded-full select-none cursor-pointer transition-colors";
 
@@ -63,10 +32,12 @@ export default function Avatar({
       onClick={onClick}
       className={[
         baseClasses,
-        sizeConfig[size],
+        sizeClasses.size,
         avatarTypography.className,
-        bgClass,
-        fgClass,
+        variantTokens.background,
+        variantTokens.text,
+        variantTokens.border,
+        variantTokens.hover,
         className,
       ]
         .filter(Boolean)

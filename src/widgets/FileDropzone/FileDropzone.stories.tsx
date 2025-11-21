@@ -23,6 +23,11 @@ const meta = {
       control: 'text',
       description: 'Dropzone title text',
     },
+    variant: {
+      control: 'select',
+      options: ['dark', 'light'],
+      description: 'Color variant (dark or light mode)',
+    },
     className: {
       control: 'text',
       description: 'Additional CSS classes',
@@ -51,6 +56,7 @@ export const Default: Story = {
     multiple: false,
     maxSize: 5 * 1024 * 1024, // 5MB
     title: 'Upload Image',
+    variant: 'dark',
     onFilesAdded: (files) => console.log('Files added:', files),
   },
 };

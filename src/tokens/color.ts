@@ -1,4 +1,7 @@
-export type ComponentVariant = "primary" | "secondary" | "transparent" | "success" | "error" | "warning" | "info";
+export type ComponentVariant = "dark" | "light" | "transparent" | "success" | "error" | "warning" | "info";
+
+// Backward compatibility aliases
+export type LegacyVariant = "primary" | "secondary";
 
 type ColorToken = {
   background: string;
@@ -9,19 +12,21 @@ type ColorToken = {
 };
 
 export const colorTokens: Record<ComponentVariant, ColorToken> = {
-  primary: {
-    background: "bg-white/96",
-    text: "text-black",
-    hover: "hover:bg-white",
-    disabled: "disabled:text-black/60",
-    border: "",
-  },
-  secondary: {
+  // Dark mode - main theme with transparent backgrounds and white text
+  dark: {
     background: "bg-white/4",
     text: "text-white",
     hover: "hover:bg-white/8",
     disabled: "disabled:text-white/30",
     border: "border border-white/10",
+  },
+  // Light mode - contrast theme with white backgrounds and black text
+  light: {
+    background: "bg-white/96",
+    text: "text-black",
+    hover: "hover:bg-white",
+    disabled: "disabled:text-black/60",
+    border: "",
   },
   transparent: {
     background: "",

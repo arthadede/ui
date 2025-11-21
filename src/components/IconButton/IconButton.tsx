@@ -13,7 +13,7 @@ export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>
 export default function IconButton({
   iconName,
   size = "md",
-  variant = "secondary",
+  variant = "dark",
   disabled,
   ...rest
 }: IconButtonProps) {
@@ -23,22 +23,23 @@ export default function IconButton({
   const sizeClasses = getSizeClasses(size);
   const variantClasses = getVariantClasses(variant);
 
-  const sizeMap: Record<ComponentSize, string> = {
-    sm: "size-9",
-    md: "size-10",
-    lg: "size-12",
-    xl: "size-16",
+  // Icons use contrasting variant based on container variant
+  const getIconVariant = (): "dark" | "light" => {
+    if (variant === "dark") return "light";
+    if (variant === "light") return "dark";
+    // For semantic variants (success, error, etc), use light icons
+    return "light";
   };
 
   return (
     <button
-      className={[baseClasses, sizeMap[size], sizeClasses.padding, variantClasses]
+      className={[baseClasses, sizeClasses.size, sizeClasses.padding, variantClasses]
         .filter(Boolean)
         .join(" ")}
       disabled={disabled}
       {...rest}
     >
-      <Icon name={iconName} size={sizeClasses.iconSize} color={variant} />
+      <Icon name={iconName} size={sizeClasses.iconSize} variant={getIconVariant()} />
     </button>
   );
 }

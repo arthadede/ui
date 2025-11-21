@@ -1,9 +1,11 @@
 import React from "react";
+import { getComponentVariant, getTypographyForSize } from "../../tokens";
 
 export type InputPinProps = {
   values: string[];
   onChange: (values: string[]) => void;
   length?: number;
+  variant?: "dark" | "light";
   className?: string;
   disabled?: boolean;
 };
@@ -12,10 +14,19 @@ const InputPin: React.FC<InputPinProps> = ({
   values,
   onChange,
   length = 6,
+  variant = "dark",
   className = "",
   disabled = false
 }) => {
   const inputsRef = React.useRef<Array<HTMLInputElement | null>>([]);
+
+  // Get variant and typography tokens from the token system
+  const variantTokens = getComponentVariant(variant);
+  const typographyClasses = getTypographyForSize("md");
+
+  // Build placeholder color based on variant
+  const placeholderColor = variant === "dark" ? "placeholder:text-white/30" : "placeholder:text-black/60";
+  const focusClasses = variant === "dark" ? "focus:border-white focus:bg-white/12" : "focus:border-black focus:bg-white";
 
   React.useEffect(() => {
     if (inputsRef.current.length !== length) {
@@ -73,15 +84,19 @@ const InputPin: React.FC<InputPinProps> = ({
     inputsRef.current[nextIdx]?.focus();
   };
 
-  
+
   const baseInputClass = [
     "w-12 h-12",
-    "border border-white/10 rounded",
-    "bg-white/8",
-    "text-white text-center placeholder:text-white/30",
-    "text-base leading-6 font-medium",
+    "border rounded",
+    variantTokens.border,
+    variantTokens.background,
+    variantTokens.text,
+    "text-center",
+    placeholderColor,
+    typographyClasses.className,
     "transition-colors",
-    "focus:outline-none focus:border-white focus:bg-white/12",
+    "focus:outline-none",
+    focusClasses,
     disabled && "opacity-50 cursor-not-allowed",
     "select-none",
   ]

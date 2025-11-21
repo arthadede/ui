@@ -7,7 +7,7 @@ const meta = {
   parameters: { layout: 'centered' },
   tags: ['autodocs', 'component'],
   argTypes: {
-    label: {
+    text: {
       control: 'text',
       description: 'Text displayed on the chip',
     },
@@ -16,9 +16,10 @@ const meta = {
       options: ['processing', 'success', 'error', 'info', 'default'],
       description: 'Visual state of the chip',
     },
-    className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Size of the chip',
     },
   },
 } satisfies Meta<typeof Chip>;
@@ -28,7 +29,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Processing',
+    text: 'Processing',
     state: 'processing',
+    size: 'sm',
   },
 };

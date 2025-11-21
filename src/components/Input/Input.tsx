@@ -1,19 +1,19 @@
 import React from "react";
 import { Icon } from "../Icon";
-import { getComponentTypography } from "../../tokens";
+import { getSizeClasses, getVariantClasses, getComponentVariant, getComponentTypography, type ComponentSize } from "../../tokens";
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> & {
   leftIcon?: string;
   rightIcon?: string;
-  size?: "sm" | "md" | "lg";
-  variant?: "primary" | "secondary";
+  size?: ComponentSize;
+  variant?: "dark" | "light";
 };
 
 export default function Input({
   leftIcon,
   rightIcon,
   size = "md",
-  variant = "primary",
+  variant = "dark",
   className = "",
   disabled,
   ...rest
@@ -25,36 +25,13 @@ export default function Input({
   // Get typography token for input text
   const inputTypography = getComponentTypography("input-text");
 
-  // Size configuration combining spacing and typography
-  const sizeConfig: Record<"sm" | "md" | "lg", { container: string; iconSize: number }> = {
-    sm: {
-      container: "gap-2 p-2",
-      iconSize: 20,
-    },
-    md: {
-      container: "gap-2 p-2 h-10",
-      iconSize: 24,
-    },
-    lg: {
-      container: "gap-3 p-3 h-12",
-      iconSize: 28,
-    },
-  };
+  // Get size and variant tokens from the token system
+  const sizeClasses = getSizeClasses(size);
+  const variantClasses = getVariantClasses(variant);
+  const variantTokens = getComponentVariant(variant);
 
-  // Variant configuration using token system with library naming
-  const variantConfig: Record<"primary" | "secondary", { container: string; input: string }> = {
-    primary: {
-      container: "bg-white/4 border border-white/10",
-      input: "text-white placeholder:text-white/30",
-    },
-    secondary: {
-      container: "bg-white",
-      input: "text-black placeholder:text-black/60",
-    },
-  };
-
-  const currentSize = sizeConfig[size];
-  const currentVariant = variantConfig[variant];
+  // Build placeholder color based on variant
+  const placeholderColor = variant === "dark" ? "placeholder:text-white/30" : "placeholder:text-black/60";
 
   const inputClasses = [
     "flex-1",
@@ -63,18 +40,22 @@ export default function Input({
     "border-none",
     "outline-none",
     inputTypography.className,
-    currentVariant.input,
+    variantTokens.text,
+    placeholderColor,
   ].join(" ");
 
   const renderIcon = (iconName: string) => {
     if (!iconName) return null;
 
+    // Icons use contrasting variant: dark containers get light icons, light containers get dark icons
+    const iconVariant = variant === "dark" ? "light" : "dark";
+
     return (
       <span className="relative shrink-0">
         <Icon
           name={iconName}
-          size={currentSize.iconSize}
-          color={variant === "primary" ? "secondary" : "primary"}
+          size={sizeClasses.iconSize}
+          variant={iconVariant}
         />
       </span>
     );
@@ -84,8 +65,9 @@ export default function Input({
     <div
       className={[
         baseClasses,
-        currentSize.container,
-        currentVariant.container,
+        sizeClasses.container,
+        sizeClasses.size,
+        variantClasses,
         disabled && "opacity-50",
         className,
       ]

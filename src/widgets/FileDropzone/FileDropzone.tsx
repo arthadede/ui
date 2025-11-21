@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState, useId } from "react";
 import { bytesToString, acceptsToExtensions } from "../../utils/file";
 import { Icon } from "../../components/Icon";
+import { getComponentVariant, getTypographyForSize } from "../../tokens";
 
 export type FileDropzoneProps = {
   accepts: string[];
@@ -8,6 +9,7 @@ export type FileDropzoneProps = {
   onFilesAdded: (files: File[]) => void;
   maxSize: number;
   title?: string;
+  variant?: "dark" | "light";
   className?: string;
   onError?: (error: string) => void;
   onSuccess?: (message: string) => void;
@@ -24,6 +26,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
   multiple,
   maxSize,
   title = "Upload Files",
+  variant = "dark",
   className,
   onError,
   onSuccess,
@@ -31,6 +34,14 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const helperId = useId();
+
+  // Get variant and typography tokens from the token system
+  const variantTokens = getComponentVariant(variant);
+  const titleTypography = getTypographyForSize("lg");
+  const descriptionTypography = getTypographyForSize("sm");
+
+  // Icons use contrasting variant: dark containers get light icons, light containers get dark icons
+  const iconVariant = variant === "dark" ? "light" : "dark";
 
   const openFileDialog = useCallback(() => {
     inputRef.current?.click();
@@ -87,15 +98,16 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
         "group cursor-pointer outline-none",
         "flex w-full flex-col items-center justify-center",
         "gap-2 p-6",
-        "rounded-lg border-2 border-dashed border-white/10",
-        "bg-transparent",
+        "rounded-lg border-2 border-dashed",
+        variantTokens.border,
+        variantTokens.background,
         "transition-colors focus-visible:ring-2 focus-visible:ring-white/20",
-        isDragging ? "bg-white/8 border-white/30" : "hover:bg-white/5",
+        isDragging ? variantTokens.hover : "",
         className,
       ]
         .filter(Boolean)
         .join(" "),
-    [isDragging, className],
+    [isDragging, className, variantTokens],
   );
 
   return (
@@ -117,9 +129,9 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       onDrop={handleDrop}
       className={baseClass}
     >
-      <Icon name="upload" size={60} color="secondary" />
-      <p className="text-lg leading-7 font-semibold text-white">{title}</p>
-      <p id={helperId} className="text-center text-sm leading-5 font-normal text-white/80">
+      <Icon name="upload" size={60} variant={iconVariant} />
+      <p className={`${titleTypography.className} ${variantTokens.text}`}>{title}</p>
+      <p id={helperId} className={`text-center ${descriptionTypography.className} ${variantTokens.text} opacity-80`}>
         {descriptionText}
       </p>
       <input

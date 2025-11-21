@@ -16,6 +16,11 @@ const meta = {
       options: ['sm', 'md', 'lg', 'xl'],
       description: 'Avatar size variant',
     },
+    variant: {
+      control: 'select',
+      options: ['dark', 'light'],
+      description: 'Color variant (dark or light mode)',
+    },
     onClick: {
       action: 'clicked',
       description: 'Click handler function',
@@ -34,5 +39,6 @@ export const Default: Story = {
   args: {
     name: 'John Doe',
     size: 'md',
+    variant: 'dark',
   },
 };

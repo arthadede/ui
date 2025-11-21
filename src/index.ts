@@ -39,7 +39,7 @@ export type {
 
 // New components
 export { Avatar } from './components/Avatar';
-export type { AvatarProps, AvatarSize } from './components/Avatar';
+export type { AvatarProps } from './components/Avatar';
 
 export { Chip } from './components/Chip';
 export type { ChipProps, ChipState } from './components/Chip';

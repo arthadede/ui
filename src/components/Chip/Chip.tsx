@@ -1,40 +1,41 @@
 import { getVariantClasses } from "../../tokens/color";
-import { getComponentTypography } from "../../tokens";
+import { getSizeClasses, getTypographyForSize, type ComponentSize } from "../../tokens";
 
 export type ChipState = "processing" | "success" | "error" | "info" | "default";
 
 export type ChipProps = {
-  label?: string;
+  text?: string;
   state?: ChipState;
-  className?: string;
+  size?: ComponentSize;
 };
 
 export default function Chip({
-  label = "TEXT CHIP",
+  text = "TEXT CHIP",
   state = "processing",
-  className = "",
+  size = "sm",
 }: ChipProps) {
   // Map ChipState to ComponentVariant for token system compatibility
-  const stateToVariantMap: Record<ChipState, "warning" | "success" | "error" | "info" | "secondary"> = {
+  const stateToVariantMap: Record<ChipState, "warning" | "success" | "error" | "info" | "dark"> = {
     processing: "warning",
     success: "success",
     error: "error",
     info: "info",
-    default: "secondary",
+    default: "dark",
   };
 
   const variant = stateToVariantMap[state];
   const variantClasses = getVariantClasses(variant);
 
-  // Get typography token for chip text
-  const chipTypography = getComponentTypography("chip-text");
+  // Get size and typography classes from token system
+  const sizeClasses = getSizeClasses(size);
+  const typographyClasses = getTypographyForSize(size);
 
   // Base classes - shared structure and layout
-  const baseClasses = "inline-flex items-center justify-center rounded border border-solid gap-2.5 px-2 py-1";
+  const baseClasses = "inline-flex items-center justify-center rounded border border-solid";
 
   return (
-    <div className={[baseClasses, variantClasses, className].filter(Boolean).join(" ")}>
-      <p className={`${chipTypography.className} text-white/80`}>{label}</p>
+    <div className={[baseClasses, sizeClasses.container, typographyClasses.className, variantClasses].filter(Boolean).join(" ")}>
+      <p className="text-white/80">{text}</p>
     </div>
   );
 }
