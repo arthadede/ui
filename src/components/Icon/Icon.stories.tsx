@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Icon from './Icon';
+import { type ComponentSize } from '../../tokens';
+
+type IconColor = "primary" | "secondary" | "transparent";
 
 const meta = {
   title: 'Components/Icon',
@@ -31,8 +34,12 @@ const meta = {
       description: 'Name of the icon to display',
     },
     size: {
-      control: { type: 'number', min: 12, max: 128, step: 4 },
-      description: 'Size of the icon in pixels',
+      control: { type: 'select', options: ['sm', 'md', 'lg'] as ComponentSize[] },
+      description: 'Size token for the icon (sm=20px, md=24px, lg=28px)',
+    },
+    color: {
+      control: { type: 'select', options: ['primary', 'secondary'] as IconColor[] },
+      description: 'Color token for the icon (primary=text-black, secondary=text-white)',
     }
   },
 } satisfies Meta<typeof Icon>;
@@ -42,7 +49,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Example: Story = {
   args: {
-    name: 'logo',
-    size: 24,
+    name: 'search',
+    size: 'md',
+    color: 'primary',
   },
 };

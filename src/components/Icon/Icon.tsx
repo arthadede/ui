@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { getComponentSize, getComponentVariant, type ComponentSize } from "../../tokens";
 import CircleSvg from "./svgs/circle";
 import RectangleSvg from "./svgs/rectangle";
 import RectangleOutlineSvg from "./svgs/rectangle-outline";
@@ -17,9 +18,20 @@ import NotificationSvg from "./svgs/notification";
 import ProgressSvg from "./svgs/progress";
 import UploadSvg from "./svgs/upload";
 
+type TokenSize = ComponentSize;
+type NumericSize = number;
+type IconSize = TokenSize | NumericSize;
+type IconColor = "primary" | "secondary" | "transparent";
+
 type IconProps = {
   name: string;
-  size?: number;
+  size?: IconSize;
+  color?: IconColor;
+};
+
+// Helper to determine if size is a token
+const isTokenSize = (size: IconSize): size is TokenSize => {
+  return typeof size === "string" && ["sm", "md", "lg"].includes(size);
 };
 
 const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
@@ -42,12 +54,29 @@ const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>
 
 export default function Icon({
   name,
-  size = 24
+  size = "md",
+  color = "primary",
 }: IconProps) {
   const IconComponent = iconMap[name];
 
+  if (!IconComponent) {
+    return null;
+  }
+
+  const iconSize = isTokenSize(size)
+    ? getComponentSize(size).iconSize
+    : size;
+  
+  const colorToken = getComponentVariant(color);
+  const iconColorClass = colorToken.text;
+
   return (
-    <IconComponent width={size} height={size}>
-    </IconComponent>
+    <IconComponent
+      width={iconSize}
+      height={iconSize}
+      className={[iconColorClass].filter(Boolean).join(" ")}
+    />
   );
 }
+
+export type { IconProps };
