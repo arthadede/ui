@@ -11,16 +11,33 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'transparent'],
-      description: 'Visual style variant of the icon button',
+      options: ['dark', 'light'],
+      description: 'Visual style variant of the icon button (dark or light mode)',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Size of the icon button',
     },
     iconName: {
-      control: 'text',
+      control: 'select',
+      options: [
+        'logo',
+        'circle',
+        'rectangle',
+        'rectangle-outline',
+        'google',
+        'search',
+        'visible',
+        'circle-success',
+        'circle-error',
+        'warning',
+        'circle-info',
+        'close',
+        'notification',
+        'progress',
+        'upload',
+      ],
       description: 'Name of the icon to display',
     },
     disabled: {
@@ -35,7 +52,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: 'secondary',
+    variant: 'dark',
     iconName: 'search',
+    size: 'md',
   },
 };

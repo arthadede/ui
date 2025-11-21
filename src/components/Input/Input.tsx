@@ -19,23 +19,18 @@ export default function Input({
   ...rest
 }: InputProps) {
   
-  // Base classes - structure and layout
-  const baseClasses = "flex items-center rounded min-w-[200px] transition-colors focus-within:outline-none";
+  const baseClasses = "flex items-center rounded transition-colors focus-within:outline-none";
 
-  // Get typography token for input text
   const inputTypography = getComponentTypography("input-text");
 
-  // Get size and variant tokens from the token system
   const sizeClasses = getSizeClasses(size);
   const variantClasses = getVariantClasses(variant);
   const variantTokens = getComponentVariant(variant);
 
-  // Build placeholder color based on variant
   const placeholderColor = variant === "dark" ? "placeholder:text-white/30" : "placeholder:text-black/60";
 
   const inputClasses = [
     "flex-1",
-    "min-w-0",
     "bg-transparent",
     "border-none",
     "outline-none",
@@ -47,16 +42,9 @@ export default function Input({
   const renderIcon = (iconName: string) => {
     if (!iconName) return null;
 
-    // Icons use contrasting variant: dark containers get light icons, light containers get dark icons
-    const iconVariant = variant === "dark" ? "light" : "dark";
-
     return (
       <span className="relative shrink-0">
-        <Icon
-          name={iconName}
-          size={sizeClasses.iconSize}
-          variant={iconVariant}
-        />
+        <Icon name={iconName} size={sizeClasses.iconSize} variant={variant} />
       </span>
     );
   };
@@ -66,7 +54,6 @@ export default function Input({
       className={[
         baseClasses,
         sizeClasses.container,
-        sizeClasses.size,
         variantClasses,
         disabled && "opacity-50",
         className,

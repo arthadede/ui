@@ -2,12 +2,12 @@
 
 import React from "react";
 import { Icon } from "../Icon";
-import { getSizeClasses, getVariantClasses, type ComponentSize, type ComponentVariant } from "../../tokens";
+import { getSizeClasses, getVariantClasses, getTypographyForSize, type ComponentSize } from "../../tokens";
 
 export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> & {
   iconName: string;
   size?: ComponentSize;
-  variant?: ComponentVariant;
+  variant?: "dark" | "light";
 };
 
 export default function IconButton({
@@ -18,28 +18,36 @@ export default function IconButton({
   ...rest
 }: IconButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center rounded transition-colors focus:outline-none disabled:cursor-not-allowed disabled:opacity-60";
+    "inline-flex items-center justify-center rounded transition-colors focus:outline-none disabled:cursor-not-allowed";
 
   const sizeClasses = getSizeClasses(size);
+  const typographyClasses = getTypographyForSize(size);
   const variantClasses = getVariantClasses(variant);
-
-  // Icons use contrasting variant based on container variant
-  const getIconVariant = (): "dark" | "light" => {
-    if (variant === "dark") return "light";
-    if (variant === "light") return "dark";
-    // For semantic variants (success, error, etc), use light icons
-    return "light";
-  };
 
   return (
     <button
-      className={[baseClasses, sizeClasses.size, sizeClasses.padding, variantClasses]
+      className={[
+        baseClasses,
+        sizeClasses.size,
+        sizeClasses.padding,
+        typographyClasses.className,
+        variantClasses,
+      ]
         .filter(Boolean)
         .join(" ")}
       disabled={disabled}
       {...rest}
     >
-      <Icon name={iconName} size={sizeClasses.iconSize} variant={getIconVariant()} />
+      <span
+        className={[
+          "relative shrink-0",
+          disabled ? "opacity-60" : "opacity-[0.99]",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        <Icon name={iconName} size={sizeClasses.iconSize} variant={variant} />
+      </span>
     </button>
   );
 }
