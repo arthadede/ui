@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import InputPin from './InputPin';
 
@@ -14,9 +13,10 @@ const meta = {
       max: 8,
       description: 'Number of input fields',
     },
-    values: {
-      control: 'object',
-      description: 'Current values array',
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Size of each input field',
     },
     variant: {
       control: 'select',
@@ -39,8 +39,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    length: 6,
-    values: ['', '', '', '', '', ''],
+    length: 4,
+    size: 'md',
     variant: 'dark',
     onChange: (values) => console.log('Input values:', values),
   },

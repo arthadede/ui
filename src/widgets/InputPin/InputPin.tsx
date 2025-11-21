@@ -1,32 +1,30 @@
-import React from "react";
-import { getComponentVariant, getTypographyForSize } from "../../tokens";
+import React from 'react';
+import { Input } from '../../components/Input';
+import { type ComponentSize, getSizeClasses } from '../../tokens';
 
 export type InputPinProps = {
-  values: string[];
   onChange: (values: string[]) => void;
   length?: number;
+  size?: ComponentSize;
   variant?: "dark" | "light";
   className?: string;
   disabled?: boolean;
 };
 
 const InputPin: React.FC<InputPinProps> = ({
-  values,
   onChange,
-  length = 6,
+  length = 4,
+  size = "md",
   variant = "dark",
   className = "",
   disabled = false
 }) => {
   const inputsRef = React.useRef<Array<HTMLInputElement | null>>([]);
+  const sizeClasses = getSizeClasses(size);
 
-  // Get variant and typography tokens from the token system
-  const variantTokens = getComponentVariant(variant);
-  const typographyClasses = getTypographyForSize("md");
-
-  // Build placeholder color based on variant
-  const placeholderColor = variant === "dark" ? "placeholder:text-white/30" : "placeholder:text-black/60";
-  const focusClasses = variant === "dark" ? "focus:border-white focus:bg-white/12" : "focus:border-black focus:bg-white";
+  const [values, setValues] = React.useState<string[]>(() => {
+    return Array(length).fill('');
+  });
 
   React.useEffect(() => {
     if (inputsRef.current.length !== length) {
@@ -34,37 +32,80 @@ const InputPin: React.FC<InputPinProps> = ({
     }
   }, [length]);
 
-  const setRef = (el: HTMLInputElement | null, idx: number) => {
-    inputsRef.current[idx] = el;
+  React.useEffect(() => {
+    if (values.length !== length) {
+      setValues(Array(length).fill(""));
+    }
+  }, [length, values.length]);
+
+  const setRef = (containerEl: HTMLDivElement | null, idx: number) => {
+    if (containerEl) {
+      const input = containerEl.querySelector('input');
+      inputsRef.current[idx] = input;
+    }
   };
 
   const handleChange = (idx: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
 
+    // Only allow numbers
     const val = e.target.value.replace(/\D/g, "");
     const next = [...values];
+
     if (!val) {
       next[idx] = "";
+      setValues(next);
       onChange(next);
       return;
     }
-    next[idx] = val[0];
+
+    // Handle multiple digits - fill consecutive inputs (auto-advance)
+    let focusIndex = idx;
+    for (let i = 0; i < val.length && idx + i < length; i++) {
+      next[idx + i] = val[i];
+      focusIndex = idx + i;
+    }
+
+    setValues(next);
     onChange(next);
-    if (idx < length - 1) {
-      inputsRef.current[idx + 1]?.focus();
+
+    // Clear the current input field to prevent value duplication
+    e.target.value = "";
+
+    // Auto-focus next empty input after the last filled one (left-to-right progression)
+    const nextFocusIdx = focusIndex + 1;
+    if (nextFocusIdx < length) {
+      setTimeout(() => {
+        inputsRef.current[nextFocusIdx]?.focus();
+        inputsRef.current[nextFocusIdx]?.select();
+      }, 0);
     }
   };
 
   const handleKeyDown = (idx: number) => (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (disabled) return;
 
-    if (e.key === "Backspace" && !values[idx] && idx > 0) {
-      inputsRef.current[idx - 1]?.focus();
+    // Backspace: delete current value and move to previous input
+    if (e.key === "Backspace") {
+      if (values[idx]) {
+        // If current field has value, clear it
+        const next = [...values];
+        next[idx] = "";
+        setValues(next);
+        onChange(next);
+      } else if (idx > 0) {
+        // If current field is empty, move to previous field
+        inputsRef.current[idx - 1]?.focus();
+      }
     }
+
+    // Arrow Left: move to previous input
     if (e.key === "ArrowLeft" && idx > 0) {
       e.preventDefault();
       inputsRef.current[idx - 1]?.focus();
     }
+
+    // Arrow Right: move to next input
     if (e.key === "ArrowRight" && idx < length - 1) {
       e.preventDefault();
       inputsRef.current[idx + 1]?.focus();
@@ -75,53 +116,45 @@ const InputPin: React.FC<InputPinProps> = ({
     if (disabled) return;
 
     e.preventDefault();
+    // Only allow numbers
     const txt = e.clipboardData.getData("text").replace(/\D/g, "");
     if (!txt) return;
+
     const next = [...values];
-    for (let i = 0; i < length && i < txt.length; i++) next[i] = txt[i];
+    for (let i = 0; i < length && i < txt.length; i++) {
+      next[i] = txt[i];
+    }
+    setValues(next);
     onChange(next);
+
     const nextIdx = Math.min(txt.length, length - 1);
     inputsRef.current[nextIdx]?.focus();
   };
 
-
-  const baseInputClass = [
-    "w-12 h-12",
-    "border rounded",
-    variantTokens.border,
-    variantTokens.background,
-    variantTokens.text,
-    "text-center",
-    placeholderColor,
-    typographyClasses.className,
-    "transition-colors",
-    "focus:outline-none",
-    focusClasses,
-    disabled && "opacity-50 cursor-not-allowed",
-    "select-none",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={`flex justify-between ${className}`}>
+    <div className={`flex gap-2 ${className}`}>
       {Array.from({ length }).map((_, i) => (
-        <input
+        <div
           key={i}
+          className={`${sizeClasses.size} shrink-0`}
           ref={(el) => setRef(el, i)}
-          type="text"
-          inputMode="numeric"
-          maxLength={1}
-          pattern="[0-9]*"
-          className={baseInputClass}
-          value={values[i] || ""}
-          onChange={handleChange(i)}
-          onKeyDown={handleKeyDown(i)}
-          onPaste={handlePaste}
-          disabled={disabled}
-          aria-label={`Digit ${i + 1} of ${length}`}
-          aria-describedby={`pin-input-${length}-description`}
-        />
+        >
+          <Input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            size={size}
+            variant={variant}
+            value={values[i] || ""}
+            onChange={handleChange(i)}
+            onKeyDown={handleKeyDown(i)}
+            onPaste={handlePaste}
+            disabled={disabled}
+            className="w-full [&_input]:text-center [&_input]:min-w-0"
+            aria-label={`Digit ${i + 1} of ${length}`}
+            aria-describedby={`pin-input-${length}-description`}
+          />
+        </div>
       ))}
     </div>
   );
