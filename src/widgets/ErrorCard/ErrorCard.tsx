@@ -3,7 +3,7 @@ import Card from '../../components/Card/Card';
 import Text from '../../components/Text/Text';
 import Button from '../../components/Button/Button';
 
-export interface ErrorPageProps {
+export interface ErrorCardProps {
   variant?: 'dark' | 'light';
   onGoHome?: () => void;
   title?: string;
@@ -12,14 +12,14 @@ export interface ErrorPageProps {
   className?: string;
 }
 
-const ErrorPage = ({
+const ErrorCard = ({
   variant = 'light',
   onGoHome,
   title = 'Page not found',
   description = "The page you're looking for doesn't exist.",
   homeButtonText = 'Back to Home',
   className = '',
-}: NotFoundPageProps) => {
+}: ErrorCardProps) => {
   const defaultGoHome = () => {
     window.location.href = '/';
   };
@@ -75,4 +75,4 @@ const ErrorPage = ({
   );
 };
 
-export default ErrorPage;
+export default ErrorCard;

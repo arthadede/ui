@@ -10,13 +10,13 @@ import InlineError from '../../components/InlineError';
 import { Icon } from '../../components/Icon';
 import { Text } from '../../components/Text';
 
-export type LoginPageStep = 'email' | 'pin';
+export type LoginCardStep = 'email' | 'pin';
 
-export interface LoginPageProps {
+export interface LoginCardProps {
   /**
    * Current step in the authentication flow
    */
-  step?: LoginPageStep;
+  step?: LoginCardStep;
   /**
    * Whether the form is in loading state
    */
@@ -59,7 +59,7 @@ export interface LoginPageProps {
   onEmailChange?: (email: string) => void;
 }
 
-const LoginPage = ({
+const LoginCard = ({
   step = 'email',
   loading = false,
   error = null,
@@ -70,7 +70,7 @@ const LoginPage = ({
   onGoogleSignIn,
   onBack,
   onEmailChange,
-}: LoginPageProps) => {
+}: LoginCardProps) => {
   const [email, setEmail] = useState(emailValue);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,4 +219,4 @@ const LoginPage = ({
   );
 };
 
-export default LoginPage;
+export default LoginCard;

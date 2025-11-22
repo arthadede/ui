@@ -70,12 +70,34 @@ export { Text } from './components/Text';
 export type { TextProps } from './components/Text';
 
 // Examples
-export { LoginPage } from './pages/LoginPage';
-export type { LoginPageProps, LoginPageStep } from './pages/LoginPage';
+export { LoginCard } from './widgets/LoginCard';
+export type { LoginCardProps, LoginCardStep } from './widgets/LoginCard';
 
-export { ErrorPage } from './pages/NotFoundPage';
-export type { ErrorPageProps } from './pages/NotFoundPage';
+export { ErrorCard } from './widgets/ErrorCard';
+export type { ErrorCardProps } from './widgets/ErrorCard';
 
 // Utility functions
 export { getInitial, getBucket } from './utils/avatar';
 export { bytesToString, acceptsToExtensions } from './utils/file';
+
+// Layouts
+export {
+  OverlayLayout,
+  OverlayProvider,
+  useOverlay,
+  OverlayHeader,
+  OverlayContent,
+  OverlayLeft,
+  OverlayRight,
+  OverlayModal,
+  OverlaySnackbar,
+} from './layouts';
+
+export type {
+  OverlayPosition,
+  OverlayConfig,
+  OverlayState,
+  OverlayActions,
+  OverlayContextValue,
+  OverlayProviderProps,
+} from './layouts';

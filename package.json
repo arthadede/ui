@@ -69,5 +69,8 @@
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
   }
 }
