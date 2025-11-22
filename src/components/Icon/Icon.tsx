@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { getComponentSize, getComponentVariant, type ComponentSize } from "../../tokens";
+import { getComponentSize, getComponentVariant, getAdaptiveVariantClasses, type ComponentSize } from "../../tokens";
 import CircleSvg from "./svgs/circle";
 import RectangleSvg from "./svgs/rectangle";
 import RectangleOutlineSvg from "./svgs/rectangle-outline";
@@ -62,7 +62,7 @@ const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>
 export default function Icon({
   name,
   size = "md",
-  variant = "light",
+  variant,
 }: IconProps) {
   const IconComponent = iconMap[name];
 
@@ -74,8 +74,9 @@ export default function Icon({
     ? getComponentSize(size).iconSize
     : size;
 
-  const variantToken = getComponentVariant(variant);
-  const iconColorClass = variantToken.text;
+  const iconColorClass = variant
+    ? getComponentVariant(variant).text
+    : getAdaptiveVariantClasses('icon').text;
 
   return (
     <IconComponent

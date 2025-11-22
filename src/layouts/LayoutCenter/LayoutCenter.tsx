@@ -1,8 +1,10 @@
 "use client";
 
 import type { HTMLAttributes } from "react";
+import { getAdaptiveVariantClassesString } from "../../tokens";
 
-export type LayoutCenterProps = HTMLAttributes<HTMLDivElement>;
+export type LayoutCenterProps = HTMLAttributes<HTMLDivElement> & {
+};
 
 export default function LayoutCenter({
   children,
@@ -11,9 +13,11 @@ export default function LayoutCenter({
 }: LayoutCenterProps) {
   const baseClasses = "flex flex-col items-center justify-center min-h-screen w-full";
 
+  const adaptiveBackground = getAdaptiveVariantClassesString('card');
+
   return (
     <div
-      className={[baseClasses, className].filter(Boolean).join(" ")}
+      className={[baseClasses, adaptiveBackground, className].filter(Boolean).join(" ")}
       {...rest}
     >
       {children}

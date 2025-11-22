@@ -2,7 +2,7 @@
 
 import React from "react";
 import Icon from "../Icon/Icon";
-import { getSizeClasses, getVariantClasses, getTypographyForSize, type ComponentSize } from "../../tokens";
+import { getSizeClasses, getVariantClasses, getTypographyForSize, getAdaptiveVariantClassesString, type ComponentSize } from "../../tokens";
 
 export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> & {
   leftIcon?: string;
@@ -15,17 +15,16 @@ export default function Button({
   leftIcon,
   rightIcon,
   size = "md",
-  variant = "dark",
+  variant,
   children,
   disabled,
   ...rest
 }: ButtonProps) {
   const baseClasses =
     "inline-flex items-center justify-center rounded transition-colors focus:outline-none cursor-pointer disabled:cursor-not-allowed";
-
   const sizeClasses = getSizeClasses(size);
   const typographyClasses = getTypographyForSize(size);
-  const variantClasses = getVariantClasses(variant);
+  const variantClasses = variant ? getVariantClasses(variant) : getAdaptiveVariantClassesString('button');
 
   const renderIcon = (iconName: string) => {
     if (!iconName) return null;

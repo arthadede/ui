@@ -1,5 +1,9 @@
 import './styles/globals.css';
 
+// Theme context and hooks
+export { ThemeProvider } from './contexts/ThemeContext';
+export { useTheme, useResolvedTheme } from './hooks/useTheme';
+
 export { Button } from './components/Button';
 export type { ButtonProps } from './components/Button';
 
@@ -12,8 +16,8 @@ export type { IconProps } from './components/Icon';
 export { sizeTokens, getComponentSize, getSizeClasses } from './tokens';
 export type { ComponentSize } from './tokens';
 
-export { colorTokens, getComponentVariant, getVariantClasses } from './tokens';
-export type { ComponentVariant } from './tokens';
+export { colorTokens, getComponentVariant, getVariantClasses, adaptiveColorTokens, getAdaptiveVariantClasses, getAdaptiveVariantClassesString } from './tokens';
+export type { ComponentVariant, AdaptiveVariant } from './tokens';
 
 export {
   fontSizeTokens,

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { useOverlay } from './context/OverlayContext';
+import { getAdaptiveVariantClassesString } from '../../tokens';
 import OverlayHeader from './components/OverlayHeader';
 import OverlayContent from './components/OverlayContent';
 import OverlayLeft from './components/OverlayLeft';
@@ -14,6 +15,8 @@ type OverlayLayoutProps = {
 export default function OverlayLayout({ children }: OverlayLayoutProps) {
   const { left, right } = useOverlay();
 
+  const adaptiveBackground = getAdaptiveVariantClassesString('card');
+
   const getGridColumns = () => {
     if (left.isOpen && right.isOpen) return 'auto 1fr auto';
     if (left.isOpen) return 'auto 1fr';
@@ -22,7 +25,7 @@ export default function OverlayLayout({ children }: OverlayLayoutProps) {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className={`flex flex-col h-screen overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 ${adaptiveBackground}`}>
       <OverlayHeader />
 
       {/* Mobile layout */}
@@ -49,6 +52,7 @@ export default function OverlayLayout({ children }: OverlayLayoutProps) {
           gridTemplateColumns: getGridColumns(),
           animationDuration: '300ms',
           animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'grid-template-columns 300ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <OverlayLeft />

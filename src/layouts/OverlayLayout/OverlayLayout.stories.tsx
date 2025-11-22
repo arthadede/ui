@@ -4,6 +4,7 @@ import { OverlayProvider, useOverlay } from './context/OverlayContext';
 import OverlayLayout from './OverlayLayout';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
+import { Text } from '../../components/Text';
 
 const DemoContent = () => {
   const {
@@ -28,12 +29,12 @@ const DemoContent = () => {
   useEffect(() => {
     registerOverlay('demo-header', {
       render: () => (
-        <div className="bg-gray-900 text-white p-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold">Demo Header</h1>
+        <Card className="m-0 p-4 flex items-center justify-between rounded-none">
+          <Text size="xl" weight="bold">Demo Header</Text>
           <Button onClick={closeHeader} size="sm">
             Close
           </Button>
-        </div>
+        </Card>
       ),
     });
 
@@ -41,8 +42,8 @@ const DemoContent = () => {
       render: () => (
         <Card className="h-full">
           <div className="p-4 space-y-4">
-            <h2 className="text-lg font-semibold">Left Panel</h2>
-            <p className="text-sm text-gray-600">This is the left sidebar content.</p>
+            <Text size="lg" weight="semibold">Left Panel</Text>
+            <Text size="sm">This is the left sidebar content.</Text>
             <Button onClick={closeLeft} size="sm" variant="light">
               Close Left
             </Button>
@@ -56,8 +57,8 @@ const DemoContent = () => {
       render: () => (
         <Card className="h-full">
           <div className="p-4 space-y-4">
-            <h2 className="text-lg font-semibold">Wide Left Panel</h2>
-            <p className="text-sm text-gray-600">This is a wider left sidebar.</p>
+            <Text size="lg" weight="semibold">Wide Left Panel</Text>
+            <Text size="sm">This is a wider left sidebar.</Text>
             <Button onClick={closeLeft} size="sm" variant="light">
               Close Left
             </Button>
@@ -71,8 +72,8 @@ const DemoContent = () => {
       render: () => (
         <Card className="h-full">
           <div className="p-4 space-y-4">
-            <h2 className="text-lg font-semibold">Right Panel</h2>
-            <p className="text-sm text-gray-600">This is the right sidebar content.</p>
+            <Text size="lg" weight="semibold">Right Panel</Text>
+            <Text size="sm">This is the right sidebar content.</Text>
             <Button onClick={closeRight} size="sm" variant="light">
               Close Right
             </Button>
@@ -86,11 +87,11 @@ const DemoContent = () => {
       render: () => (
         <Card className="w-96 max-w-full">
           <div className="p-6 space-y-4">
-            <h2 className="text-xl font-bold">Modal Dialog</h2>
-            <p className="text-sm text-gray-600">
+            <Text size="xl" weight="bold">Modal Dialog</Text>
+            <Text size="sm">
               This is a modal dialog. Click the backdrop or close button to dismiss.
-            </p>
-            <Button onClick={closeModal} variant="dark" className="w-full">
+            </Text>
+            <Button onClick={closeModal} className="w-full">
               Close Modal
             </Button>
           </div>
@@ -100,9 +101,9 @@ const DemoContent = () => {
 
     registerOverlay('demo-snackbar-bottom', {
       render: () => (
-        <Card className="bg-gray-900 text-white">
+        <Card>
           <div className="px-6 py-3 flex items-center gap-4">
-            <span className="text-sm">This is a snackbar notification!</span>
+            <Text size="sm">This is a snackbar notification!</Text>
             <Button onClick={closeSnackbar} size="sm" variant="light">
               Dismiss
             </Button>
@@ -115,7 +116,7 @@ const DemoContent = () => {
       render: () => (
         <Card className="bg-blue-600 text-white">
           <div className="px-6 py-3 flex items-center gap-4">
-            <span className="text-sm">Top snackbar notification!</span>
+            <Text size="sm">Top snackbar notification!</Text>
             <Button onClick={closeSnackbar} size="sm" variant="light">
               Dismiss
             </Button>
@@ -135,16 +136,16 @@ const DemoContent = () => {
   return (
     <div className="p-8 space-y-6 h-full overflow-auto">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Overlay Layout Demo</h1>
-        <p className="text-gray-600">
+        <Text size="3xl" weight="bold" className="mb-2">Overlay Layout Demo</Text>
+        <Text>
           Try opening different sections to see the responsive layout in action.
-        </p>
+        </Text>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
-            <h2 className="text-lg font-semibold mb-3">Header Controls</h2>
+            <Text size="lg" weight="semibold" className="mb-3">Header Controls</Text>
             <div className="flex gap-2">
               <Button onClick={() => openHeader('demo-header')} disabled={header.isOpen}>
                 Open Header
@@ -156,7 +157,7 @@ const DemoContent = () => {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-3">Left Sidebar Controls</h2>
+            <Text size="lg" weight="semibold" className="mb-3">Left Sidebar Controls</Text>
             <div className="flex gap-2 flex-wrap">
               <Button onClick={() => openLeft('demo-left')} disabled={left.isOpen}>
                 Open Left (300px)
@@ -173,7 +174,7 @@ const DemoContent = () => {
 
         <div className="space-y-4">
           <div>
-            <h2 className="text-lg font-semibold mb-3">Right Sidebar Controls</h2>
+            <Text size="lg" weight="semibold" className="mb-3">Right Sidebar Controls</Text>
             <div className="flex gap-2">
               <Button onClick={() => openRight('demo-right')} disabled={right.isOpen}>
                 Open Right
@@ -185,7 +186,7 @@ const DemoContent = () => {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-3">Modal Controls</h2>
+            <Text size="lg" weight="semibold" className="mb-3">Modal Controls</Text>
             <div className="flex gap-2">
               <Button onClick={() => openModal('demo-modal')} disabled={modal.isOpen}>
                 Open Modal

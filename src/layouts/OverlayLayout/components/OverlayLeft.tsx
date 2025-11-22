@@ -9,7 +9,7 @@ export default function OverlayLeft() {
 
   return (
     <div
-      className="flex flex-col h-full overflow-y-auto w-full md:w-auto animate-slide-in-left"
+      className="flex flex-col h-full overflow-y-auto w-full md:w-auto animate-slide-in-left transition-all duration-300 ease-out"
       style={{ width: left.width }}
     >
       {left.node}

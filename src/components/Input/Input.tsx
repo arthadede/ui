@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "../Icon";
-import { getSizeClasses, getVariantClasses, getComponentVariant, getComponentTypography, type ComponentSize } from "../../tokens";
+import { getSizeClasses, getVariantClasses, getComponentVariant, getComponentTypography, getAdaptiveVariantClasses, type ComponentSize } from "../../tokens";
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> & {
   leftIcon?: string;
@@ -13,7 +13,7 @@ export default function Input({
   leftIcon,
   rightIcon,
   size = "md",
-  variant = "dark",
+  variant,
   className = "",
   disabled,
   ...rest
@@ -24,11 +24,27 @@ export default function Input({
   const inputTypography = getComponentTypography("input-text");
 
   const sizeClasses = getSizeClasses(size);
-  const inputVariant = variant === "dark" ? "input-dark" : "input-light";
-  const variantClasses = getVariantClasses(inputVariant);
-  const variantTokens = getComponentVariant(inputVariant);
 
-  const placeholderColor = variant === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500";
+  let variantClasses: string;
+  let variantTokens: any;
+  let placeholderColor: string;
+
+  if (variant) {
+    const inputVariant = variant === "dark" ? "input-dark" : "input-light";
+    variantClasses = getVariantClasses(inputVariant);
+    variantTokens = getComponentVariant(inputVariant);
+    placeholderColor = variant === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500";
+  } else {
+    variantTokens = getAdaptiveVariantClasses('input');
+    variantClasses = [
+      variantTokens.background,
+      variantTokens.border,
+      variantTokens.hover,
+      variantTokens.focus,
+      variantTokens.disabled,
+    ].filter(Boolean).join(" ");
+    placeholderColor = "placeholder:text-gray-400 dark:placeholder:text-gray-500";
+  }
 
   const inputClasses = [
     "flex-1",
@@ -36,7 +52,7 @@ export default function Input({
     "border-none",
     "outline-none",
     inputTypography.className,
-    variantTokens.text,
+    variant ? variantTokens.text : "text-black dark:text-white",
     placeholderColor,
   ].join(" ");
 

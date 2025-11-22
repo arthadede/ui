@@ -9,7 +9,7 @@ export default function OverlayRight() {
 
   return (
     <div
-      className="flex flex-col h-full overflow-y-auto w-full md:w-auto animate-slide-in-right"
+      className="flex flex-col h-full overflow-y-auto w-full md:w-auto animate-slide-in-right transition-all duration-300 ease-out"
       style={{ width: right.width }}
     >
       {right.node}

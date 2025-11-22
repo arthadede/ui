@@ -3,6 +3,9 @@ export type ComponentVariant = "dark" | "light" | "transparent" | "success" | "e
 // Backward compatibility aliases
 export type LegacyVariant = "primary" | "secondary";
 
+// Adaptive variant for automatic dark mode detection
+export type AdaptiveVariant = "auto";
+
 type ColorToken = {
   background: string;
   text: string;
@@ -115,6 +118,89 @@ export const getComponentVariant = (variant: ComponentVariant): ColorToken => {
 
 export const getVariantClasses = (variant: ComponentVariant): string => {
   const tokens = colorTokens[variant];
+  return [
+    tokens.background,
+    tokens.text,
+    tokens.hover,
+    tokens.focus,
+    tokens.disabled,
+    tokens.border,
+  ]
+    .filter(Boolean)
+    .join(" ");
+};
+
+// Adaptive color tokens that automatically switch between light and dark based on system preference
+export const adaptiveColorTokens = {
+  // Button adaptive tokens
+  button: {
+    background: "bg-white dark:bg-black",
+    text: "text-black dark:text-white",
+    hover: "hover:bg-gray-100 dark:hover:bg-gray-800",
+    focus: "focus:bg-gray-100 dark:focus:bg-gray-800",
+    disabled: "disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600",
+    border: "border border-gray-300 dark:border-gray-700",
+  },
+
+  // Card adaptive tokens
+  card: {
+    background: "bg-white dark:bg-black",
+    text: "text-black dark:text-white",
+    hover: "",
+    focus: "",
+    disabled: "disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600",
+    border: "border border-gray-200 dark:border-gray-800",
+  },
+
+  // Input adaptive tokens
+  input: {
+    background: "bg-gray-50 dark:bg-gray-900",
+    text: "text-black dark:text-white",
+    hover: "hover:bg-gray-100 dark:hover:bg-gray-800",
+    focus: "focus:bg-gray-100 dark:focus:bg-gray-800",
+    disabled: "disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600",
+    border: "border border-gray-300 dark:border-gray-700",
+  },
+
+  // Icon adaptive tokens
+  icon: {
+    background: "bg-white dark:bg-black",
+    text: "text-black dark:text-white",
+    hover: "hover:bg-gray-100 dark:hover:bg-gray-800",
+    focus: "focus:bg-gray-100 dark:focus:bg-gray-800",
+    disabled: "disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600",
+    border: "",
+  },
+
+  // General adaptive tokens
+  transparent: {
+    background: "",
+    text: "text-white dark:text-black",
+    hover: "hover:bg-white/8 dark:hover:bg-black/8",
+    focus: "focus:bg-white/12 dark:focus:bg-black/12",
+    disabled: "disabled:opacity-60",
+    border: "",
+  },
+} as const;
+
+type AdaptiveColorTokenKeys = keyof typeof adaptiveColorTokens;
+
+/**
+ * Get adaptive variant classes for automatic dark mode detection
+ * @param type - The component type (button, card, input, icon, transparent)
+ * @returns Array of adaptive color classes
+ */
+export const getAdaptiveVariantClasses = (type: AdaptiveColorTokenKeys): ColorToken => {
+  return adaptiveColorTokens[type];
+};
+
+/**
+ * Get adaptive variant classes as a single string
+ * @param type - The component type (button, card, input, icon, transparent)
+ * @returns String of adaptive color classes
+ */
+export const getAdaptiveVariantClassesString = (type: AdaptiveColorTokenKeys): string => {
+  const tokens = adaptiveColorTokens[type];
   return [
     tokens.background,
     tokens.text,

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Icon } from "../Icon";
-import { getSizeClasses, getVariantClasses, getTypographyForSize, type ComponentSize } from "../../tokens";
+import { getSizeClasses, getVariantClasses, getTypographyForSize, getAdaptiveVariantClassesString, type ComponentSize } from "../../tokens";
 
 export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> & {
   iconName: string;
@@ -13,7 +13,7 @@ export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>
 export default function IconButton({
   iconName,
   size = "md",
-  variant = "dark",
+  variant,
   disabled,
   ...rest
 }: IconButtonProps) {
@@ -22,7 +22,7 @@ export default function IconButton({
 
   const sizeClasses = getSizeClasses(size);
   const typographyClasses = getTypographyForSize(size);
-  const variantClasses = getVariantClasses(variant);
+  const variantClasses = variant ? getVariantClasses(variant) : getAdaptiveVariantClassesString('button');
 
   return (
     <button
