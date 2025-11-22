@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import LoginPage from './LoginPage';
 
 const meta = {
-  title: 'Examples/LoginPage',
+  title: 'Pages/LoginPage',
   component: LoginPage,
   parameters: {
     layout: 'fullscreen',

@@ -66,9 +66,15 @@ export type { LoadingSpinnerProps } from './components/LoadingSpinner';
 export { InlineError } from './components/InlineError';
 export type { InlineErrorProps } from './components/InlineError';
 
+export { Text } from './components/Text';
+export type { TextProps } from './components/Text';
+
 // Examples
-export { LoginPage } from './examples/LoginPage';
-export type { LoginPageProps, LoginPageStep } from './examples/LoginPage';
+export { LoginPage } from './pages/LoginPage';
+export type { LoginPageProps, LoginPageStep } from './pages/LoginPage';
+
+export { ErrorPage } from './pages/NotFoundPage';
+export type { ErrorPageProps } from './pages/NotFoundPage';
 
 // Utility functions
 export { getInitial, getBucket } from './utils/avatar';

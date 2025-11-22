@@ -8,6 +8,7 @@ import Card from '../../components/Card';
 import Divider from '../../components/Divider';
 import InlineError from '../../components/InlineError';
 import { Icon } from '../../components/Icon';
+import { Text } from '../../components/Text';
 
 export type LoginPageStep = 'email' | 'pin';
 
@@ -108,22 +109,20 @@ const LoginPage = ({
               variant={variant === 'dark' ? 'light' : 'dark'}
             />
             <div className="flex flex-col items-center gap-2">
-              <h1
-                className={`text-2xl font-bold ${
-                  variant === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}
+              <Text
+                variant="heading-3"
+                className={variant === 'dark' ? 'text-white' : 'text-gray-900'}
               >
                 {step === 'email' ? 'Sign in' : 'Enter PIN'}
-              </h1>
-              <p
-                className={`text-sm ${
-                  variant === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`}
+              </Text>
+              <Text
+                variant="body"
+                className={variant === 'dark' ? 'text-gray-400' : 'text-gray-600'}
               >
                 {step === 'email'
                   ? 'Enter your email to sign in to your account'
                   : `Enter the 6-digit code sent to ${email}`}
-              </p>
+              </Text>
             </div>
           </div>
 
@@ -205,11 +204,13 @@ const LoginPage = ({
               onClick={onBack}
               disabled={loading}
               className={`
-                text-sm font-medium hover:opacity-70 disabled:opacity-50
+                hover:opacity-70 disabled:opacity-50 cursor-pointer
                 ${variant === 'dark' ? 'text-gray-400' : 'text-gray-600'}
               `}
             >
-              ← Back
+              <Text variant="label" decoration="none">
+                ← Back
+              </Text>
             </button>
           )}
         </div>
