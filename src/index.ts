@@ -37,7 +37,7 @@ export type {
   ComponentTypography,
 } from './tokens';
 
-// New components
+// Components
 export { Avatar } from './components/Avatar';
 export type { AvatarProps } from './components/Avatar';
 
@@ -53,7 +53,6 @@ export type { InputPinProps } from './widgets/InputPin';
 export { FileDropzone } from './widgets/FileDropzone';
 export type { FileDropzoneProps } from './widgets/FileDropzone';
 
-// New layout and utility components
 export { Card } from './components/Card';
 export type { CardProps } from './components/Card';
 
@@ -69,7 +68,7 @@ export type { InlineErrorProps } from './components/InlineError';
 export { Text } from './components/Text';
 export type { TextProps } from './components/Text';
 
-// Examples
+// Widgets
 export { LoginCard } from './widgets/LoginCard';
 export type { LoginCardProps, LoginCardStep } from './widgets/LoginCard';
 
@@ -84,13 +83,7 @@ export { bytesToString, acceptsToExtensions } from './utils/file';
 export {
   OverlayLayout,
   OverlayProvider,
-  useOverlay,
-  OverlayHeader,
-  OverlayContent,
-  OverlayLeft,
-  OverlayRight,
-  OverlayModal,
-  OverlaySnackbar,
+  useOverlay
 } from './layouts';
 
 export type {
@@ -101,3 +94,6 @@ export type {
   OverlayContextValue,
   OverlayProviderProps,
 } from './layouts';
+
+export { LayoutCenter } from './layouts/LayoutCenter';
+export type { LayoutCenterProps } from './layouts/LayoutCenter';
