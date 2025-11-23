@@ -12,9 +12,10 @@ const meta = {
     text: {
       control: 'text',
     },
-    variant: {
+    mode: {
       control: 'select',
-      options: ['dark', 'light'],
+      options: ['dark', 'light', 'auto'],
+      description: 'Theme mode (dark, light, or auto for system detection)',
     },
   },
 } satisfies Meta<typeof Divider>;
@@ -22,42 +23,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const WithText: Story = {
+export const Default: Story = {
   args: {
     text: 'OR',
-    variant: 'light',
     className: 'w-64',
   },
-};
-
-export const CustomText: Story = {
-  args: {
-    text: 'Continue with',
-    variant: 'light',
-    className: 'w-64',
-  },
-};
-
-export const Dark: Story = {
-  args: {
-    text: 'OR',
-    variant: 'dark',
-    className: 'w-64',
-  },
-};
-
-export const WithoutText: Story = {
-  args: {
-    text: undefined,
-    variant: 'light',
-    className: 'w-64',
-  },
-};
-
-export const DarkWithoutText: Story = {
-  args: {
-    text: undefined,
-    variant: 'dark',
-    className: 'w-64',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Divider component with adaptive theming. Defaults to auto-detect light/dark mode. Try removing text or changing mode options to see the adaptive behavior.',
+      },
+    },
   },
 };

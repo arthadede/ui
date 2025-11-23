@@ -9,6 +9,7 @@ import Divider from '../../components/Divider';
 import InlineError from '../../components/InlineError';
 import { Icon } from '../../components/Icon';
 import { Text } from '../../components/Text';
+import { getAdaptiveVariantClassesString } from '../../tokens/color';
 
 export type LoginCardStep = 'email' | 'pin';
 
@@ -34,9 +35,9 @@ export interface LoginCardProps {
    */
   pinValue?: string;
   /**
-   * Theme variant
+   * Theme mode - defaults to automatic light/dark mode detection
    */
-  variant?: 'light' | 'dark';
+  mode?: 'light' | 'dark' | 'auto';
   /**
    * Callback when email form is submitted
    */
@@ -64,7 +65,7 @@ const LoginCard = ({
   loading = false,
   error = null,
   emailValue = '',
-  variant = 'light',
+  mode = 'auto',
   onEmailSubmit,
   onPinSubmit,
   onGoogleSignIn,
@@ -72,6 +73,10 @@ const LoginCard = ({
   onEmailChange,
 }: LoginCardProps) => {
   const [email, setEmail] = useState(emailValue);
+
+  // Determine if we should use adaptive mode
+  const isAdaptive = mode === 'auto';
+  const effectiveVariant = mode === 'auto' ? undefined : mode;
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -99,25 +104,25 @@ const LoginCard = ({
 
   return (
     <div className="flex min-h-screen items-center justify-center px-6">
-      <Card variant={variant} padding="lg" className="w-full max-w-md">
+      <Card mode={effectiveVariant} padding="lg" className="w-full max-w-md">
         {/* Logo and Header */}
         <div className="flex flex-col gap-7">
           <div className="flex flex-col items-center gap-7">
             <Icon
               name="logo"
               size={160}
-              variant={variant === 'dark' ? 'light' : 'dark'}
+              mode={isAdaptive ? 'auto' : (effectiveVariant === 'dark' ? 'light' : 'dark')}
             />
             <div className="flex flex-col items-center gap-2">
               <Text
                 variant="heading-3"
-                className={variant === 'dark' ? 'text-white' : 'text-gray-900'}
+                className={isAdaptive ? getAdaptiveVariantClassesString('card') : (effectiveVariant === 'dark' ? 'text-white' : 'text-gray-900')}
               >
                 {step === 'email' ? 'Sign in' : 'Enter PIN'}
               </Text>
               <Text
                 variant="body"
-                className={variant === 'dark' ? 'text-gray-400' : 'text-gray-600'}
+                className={isAdaptive ? 'text-gray-600 dark:text-gray-400' : (effectiveVariant === 'dark' ? 'text-gray-400' : 'text-gray-600')}
               >
                 {step === 'email'
                   ? 'Enter your email to sign in to your account'
@@ -137,12 +142,12 @@ const LoginCard = ({
                     value={email}
                     size="lg"
                     onChange={handleEmailChange}
-                    variant={variant}
+                    mode={effectiveVariant}
                     disabled={loading}
                     leftIcon="email"
                   />
                   {error && (
-                    <InlineError variant={variant} className="mt-2">
+                    <InlineError mode={effectiveVariant} className="mt-2">
                       {error}
                     </InlineError>
                   )}
@@ -150,7 +155,7 @@ const LoginCard = ({
 
                 <Button
                   type="submit"
-                  variant={variant}
+                  mode={effectiveVariant}
                   size="lg"
                   disabled={!email || !isEmailValid || loading}
                   leftIcon={loading ? 'spinner' : undefined}
@@ -171,11 +176,11 @@ const LoginCard = ({
                     size="lg"
                     onChange={handlePinChange}
                     disabled={loading}
-                    variant={variant}
+                    variant={effectiveVariant}
                   />
                 </div>
                 {error && (
-                  <InlineError variant={variant} className="mt-4 text-center">
+                  <InlineError mode={effectiveVariant} className="mt-4 text-center">
                     {error}
                   </InlineError>
                 )}
@@ -184,11 +189,11 @@ const LoginCard = ({
           )}
 
           {/* OR Divider */}
-          <Divider text="OR" variant={variant} className="w-full" />
+          <Divider text="OR" mode={effectiveVariant} className="w-full" />
 
           {/* Google Sign In */}
           <Button
-            variant={variant}
+            mode={effectiveVariant}
             size="lg"
             disabled={loading}
             leftIcon="google"
@@ -205,7 +210,7 @@ const LoginCard = ({
               disabled={loading}
               className={`
                 hover:opacity-70 disabled:opacity-50 cursor-pointer
-                ${variant === 'dark' ? 'text-gray-400' : 'text-gray-600'}
+                ${isAdaptive ? 'text-gray-600 dark:text-gray-400' : (effectiveVariant === 'dark' ? 'text-gray-400' : 'text-gray-600')}
               `}
             >
               <Text variant="label" decoration="none">

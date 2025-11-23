@@ -12,10 +12,12 @@ const meta = {
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Size of the spinner',
     },
-    variant: {
+    mode: {
       control: 'select',
-      options: ['dark', 'light'],
+      options: ['dark', 'light', 'auto'],
+      description: 'Theme mode of the spinner (dark, light, or auto for system detection)',
     },
   },
 } satisfies Meta<typeof LoadingSpinner>;
@@ -26,48 +28,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: 'md',
-    variant: 'light',
   },
-};
-
-export const Small: Story = {
-  args: {
-    size: 'sm',
-    variant: 'light',
+  parameters: {
+    docs: {
+      description: {
+        story: 'LoadingSpinner component with adaptive theming. Defaults to auto-detect light/dark mode. Try different sizes and mode options to see the behavior.',
+      },
+    },
   },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'lg',
-    variant: 'light',
-  },
-};
-
-export const ExtraLarge: Story = {
-  args: {
-    size: 'xl',
-    variant: 'light',
-  },
-};
-
-export const Dark: Story = {
-  args: {
-    size: 'md',
-    variant: 'dark',
-  },
-};
-
-export const InButton: Story = {
-  args: {
-    size: 'sm',
-    variant: 'light',
-    className: 'inline-flex items-center gap-2 p-2 bg-blue-600 text-white rounded',
-  },
-  render: (args) => (
-    <button className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded">
-      <LoadingSpinner {...args} variant="light" />
-      Loading...
-    </button>
-  ),
 };

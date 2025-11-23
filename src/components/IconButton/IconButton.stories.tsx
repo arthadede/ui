@@ -9,10 +9,10 @@ const meta = {
   },
   tags: ['autodocs', 'component'],
   argTypes: {
-    variant: {
+    mode: {
       control: 'select',
-      options: ['dark', 'light'],
-      description: 'Visual style variant of the icon button (dark or light mode)',
+      options: ['dark', 'light', 'auto'],
+      description: 'Theme mode of the icon button (dark, light, or auto for system detection)',
     },
     size: {
       control: 'select',
@@ -53,8 +53,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: 'dark',
     iconName: 'search',
     size: 'md',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'IconButton component with adaptive theming. Defaults to auto-detect light/dark mode. Try different icons and mode options to see the behavior.',
+      },
+    },
   },
 };

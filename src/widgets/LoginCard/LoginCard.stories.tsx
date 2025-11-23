@@ -19,9 +19,10 @@ const meta = {
     error: {
       control: 'text',
     },
-    variant: {
+    mode: {
       control: 'select',
-      options: ['light', 'dark'],
+      options: ['light', 'dark', 'auto'],
+      description: 'Theme mode (light, dark, or auto for system detection)',
     },
   },
 } satisfies Meta<typeof LoginCard>;
@@ -32,6 +33,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     step: 'email',
-    variant: 'light',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'LoginCard with adaptive theming. Defaults to auto-detect light/dark mode. Try different steps (email/pin) and mode options to see the adaptive behavior in action.',
+      },
+    },
   },
 };

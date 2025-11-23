@@ -1,11 +1,10 @@
 import React from "react";
-import { getInitial } from "../../utils/avatar";
-import { getSizeClasses, getTypographyForSize, getComponentVariant, type ComponentSize } from "../../tokens";
+import { getInitial, getBucket } from "../../utils/avatar";
+import { getSizeClasses, getTypographyForSize, getComponentVariant, type ComponentSize, type ComponentVariant } from "../../tokens";
 
 export type AvatarProps = {
   name?: string;
   size?: ComponentSize;
-  variant?: "dark" | "light";
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -13,7 +12,6 @@ export type AvatarProps = {
 export default function Avatar({
   name = "",
   size = "sm",
-  variant = "dark",
   onClick = () => {},
   className = "",
 }: AvatarProps) {
@@ -22,7 +20,16 @@ export default function Avatar({
   // Get size, typography and variant tokens from the token system
   const sizeClasses = getSizeClasses(size);
   const avatarTypography = getTypographyForSize(size);
-  const variantTokens = getComponentVariant(variant);
+
+  // Use dynamic color assignment based on name
+  const variantTokens = getComponentVariant(getDynamicVariant(name));
+
+  // Define color palette for dynamic assignment
+  function getDynamicVariant(name: string | undefined): ComponentVariant {
+    const bucket = getBucket(name);
+    const colorVariants: ComponentVariant[] = ["dark", "success", "error", "warning", "info"];
+    return colorVariants[bucket % colorVariants.length];
+  }
 
   const baseClasses = "flex items-center justify-center rounded-full select-none cursor-pointer transition-colors";
 

@@ -2,26 +2,30 @@ import React from "react";
 import { Icon } from "../Icon";
 import { getSizeClasses, getVariantClasses, getComponentVariant, getComponentTypography, getAdaptiveVariantClasses, type ComponentSize } from "../../tokens";
 
-export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> & {
+export type InputSelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size"> & {
   leftIcon?: string;
   rightIcon?: string;
   size?: ComponentSize;
   mode?: "dark" | "light" | "auto";
+  placeholder?: string;
+  options?: Array<{ value: string; label: string; disabled?: boolean }>;
 };
 
-export default function Input({
+export default function InputSelect({
   leftIcon,
   rightIcon,
   size = "md",
   mode = "auto",
   className = "",
   disabled,
+  placeholder,
+  options = [],
   ...rest
-}: InputProps) {
-  
+}: InputSelectProps) {
+
   const baseClasses = "flex items-center rounded transition-colors focus-within:outline-none";
 
-  const inputTypography = getComponentTypography("input-text");
+  const selectTypography = getComponentTypography("input-text");
 
   const sizeClasses = getSizeClasses(size);
 
@@ -38,22 +42,23 @@ export default function Input({
       variantTokens.focus,
       variantTokens.disabled,
     ].filter(Boolean).join(" ");
-    placeholderColor = "placeholder:text-gray-400 dark:placeholder:text-gray-500";
+    placeholderColor = "text-gray-400 dark:text-gray-500";
   } else {
     const inputVariant = mode === "dark" ? "input-dark" : "input-light";
     variantClasses = getVariantClasses(inputVariant);
     variantTokens = getComponentVariant(inputVariant);
-    placeholderColor = mode === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500";
+    placeholderColor = mode === "dark" ? "text-gray-400" : "text-gray-500";
   }
 
-  const inputClasses = [
+  const selectClasses = [
     "flex-1",
     "bg-transparent",
     "border-none",
     "outline-none",
-    inputTypography.className,
+    selectTypography.className,
     mode === "auto" ? "text-black dark:text-white" : variantTokens.text,
-    placeholderColor,
+    "appearance-none",
+    "cursor-pointer",
   ].join(" ");
 
   const renderIcon = (iconName: string) => {
@@ -79,12 +84,28 @@ export default function Input({
         .join(" ")}
     >
       {leftIcon && renderIcon(leftIcon)}
-      <input
-        className={inputClasses}
+      <select
+        className={selectClasses}
         disabled={disabled}
         data-mode={mode}
         {...rest}
-      />
+      >
+        {placeholder && (
+          <option value="" disabled className={placeholderColor}>
+            {placeholder}
+          </option>
+        )}
+        {options.map((option) => (
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </option>
+        ))}
+      </select>
+      {!rightIcon && renderIcon("chevron-down")}
       {rightIcon && renderIcon(rightIcon)}
     </div>
   );

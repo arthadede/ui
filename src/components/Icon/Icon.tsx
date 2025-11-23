@@ -21,6 +21,8 @@ import CloudUploadSvg from "./svgs/cloud-upload";
 import EmailSvg from "./svgs/email";
 import LockSvg from "./svgs/lock";
 import SpinnerSvg from "./svgs/spinner";
+import ChevronRightSvg from "./svgs/chevron-right";
+import ChevronDownSvg from "./svgs/chevron-down";
 
 type TokenSize = ComponentSize;
 type NumericSize = number;
@@ -29,7 +31,7 @@ type IconSize = TokenSize | NumericSize;
 type IconProps = {
   name: string;
   size?: IconSize;
-  variant?: "dark" | "light";
+  mode?: "dark" | "light" | "auto";
 };
 
 // Helper to determine if size is a token
@@ -57,12 +59,14 @@ const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>
   "email": EmailSvg,
   "lock": LockSvg,
   "spinner": SpinnerSvg,
+  "chevron-right": ChevronRightSvg,
+  "chevron-down": ChevronDownSvg,
 };
 
 export default function Icon({
   name,
   size = "md",
-  variant,
+  mode = "auto",
 }: IconProps) {
   const IconComponent = iconMap[name];
 
@@ -74,9 +78,9 @@ export default function Icon({
     ? getComponentSize(size).iconSize
     : size;
 
-  const iconColorClass = variant
-    ? getComponentVariant(variant).text
-    : getAdaptiveVariantClasses('icon').text;
+  const iconColorClass = mode === "auto"
+    ? getAdaptiveVariantClasses('icon').text
+    : getComponentVariant(mode).text;
 
   return (
     <IconComponent

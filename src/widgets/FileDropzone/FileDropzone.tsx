@@ -127,7 +127,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       onDrop={handleDrop}
       className={baseClass}
     >
-      <Icon name="cloud-upload" size={dropzoneIconSize} variant={variant} />
+      <Icon name="cloud-upload" size={dropzoneIconSize} mode={variant} />
       <p className={`${titleTypography.className} ${variantTokens.text}`}>{title}</p>
       <p id={helperId} className={`text-center ${descriptionTypography.className} ${variantTokens.text} opacity-80`}>
         {descriptionText}

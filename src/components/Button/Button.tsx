@@ -8,14 +8,14 @@ export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "s
   leftIcon?: string;
   rightIcon?: string;
   size?: ComponentSize;
-  variant?: "dark" | "light";
+  mode?: "dark" | "light" | "auto";
 };
 
 export default function Button({
   leftIcon,
   rightIcon,
   size = "md",
-  variant,
+  mode = "auto",
   children,
   disabled,
   ...rest
@@ -24,7 +24,7 @@ export default function Button({
     "inline-flex items-center justify-center rounded transition-colors focus:outline-none cursor-pointer disabled:cursor-not-allowed";
   const sizeClasses = getSizeClasses(size);
   const typographyClasses = getTypographyForSize(size);
-  const variantClasses = variant ? getVariantClasses(variant) : getAdaptiveVariantClassesString('button');
+  const variantClasses = mode === "auto" ? getAdaptiveVariantClassesString('button') : getVariantClasses(mode);
 
   const renderIcon = (iconName: string) => {
     if (!iconName) return null;
@@ -35,7 +35,7 @@ export default function Button({
           .filter(Boolean)
           .join(" ")}
       >
-        <Icon name={iconName} size={sizeClasses.iconSize} variant={variant} />
+        <Icon name={iconName} size={sizeClasses.iconSize} mode={mode} />
       </span>
     );
   };

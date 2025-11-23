@@ -45,11 +45,20 @@ export type {
 export { Avatar } from './components/Avatar';
 export type { AvatarProps } from './components/Avatar';
 
+export { Breadcrumbs } from './components/Breadcrumbs';
+export type { BreadcrumbsProps, BreadcrumbItem } from './components/Breadcrumbs';
+
 export { Chip } from './components/Chip';
 export type { ChipProps, ChipState } from './components/Chip';
 
 export { Input } from './components/Input';
 export type { InputProps } from './components/Input';
+
+export { InputSelect } from './components/InputSelect';
+export type { InputSelectProps } from './components/InputSelect';
+
+export { Autocomplete } from './components/Autocomplete';
+export type { AutocompleteProps } from './components/Autocomplete';
 
 export { InputPin } from './widgets/InputPin';
 export type { InputPinProps } from './widgets/InputPin';
@@ -80,8 +89,6 @@ export { ErrorCard } from './widgets/ErrorCard';
 export type { ErrorCardProps } from './widgets/ErrorCard';
 
 // Utility functions
-export { getInitial, getBucket } from './utils/avatar';
-export { bytesToString, acceptsToExtensions } from './utils/file';
 
 // Layouts
 export {

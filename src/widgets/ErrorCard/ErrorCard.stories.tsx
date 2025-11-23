@@ -9,9 +9,10 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    mode: {
       control: 'select',
-      options: ['light', 'dark'],
+      options: ['light', 'dark', 'auto'],
+      description: 'Theme mode (light, dark, or auto for system detection)',
     },
     title: {
       control: 'text',
@@ -29,7 +30,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    variant: 'light',
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story: 'ErrorCard with adaptive theming. Defaults to auto-detect light/dark mode. Try different mode options to see the adaptive behavior in action.',
+      },
+    },
   },
 };

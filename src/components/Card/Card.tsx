@@ -4,7 +4,7 @@ import { getVariantClasses, getShadowClasses, getAdaptiveVariantClassesString } 
 
 export interface CardProps {
   children: React.ReactNode;
-  variant?: 'dark' | 'light';
+  mode?: 'dark' | 'light' | 'auto';
   padding?: 'sm' | 'md' | 'lg';
   className?: string;
   shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
@@ -12,14 +12,14 @@ export interface CardProps {
 
 const Card = ({
   children,
-  variant,
+  mode = 'auto',
   padding = 'md',
   className = '',
   shadow = 'sm'
 }: CardProps) => {
-  const variantClasses = variant
-    ? getVariantClasses(variant === 'dark' ? 'surface-dark' : 'surface-light')
-    : getAdaptiveVariantClassesString('card');
+  const variantClasses = mode === 'auto'
+    ? getAdaptiveVariantClassesString('card')
+    : getVariantClasses(mode === 'dark' ? 'surface-dark' : 'surface-light');
   const borderRadiusClasses = 'rounded-lg'; // Static border radius
   const shadowClasses = getShadowClasses(shadow);
 

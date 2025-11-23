@@ -1,15 +1,20 @@
 
+
 export interface InlineErrorProps {
   children: React.ReactNode;
-  variant?: 'dark' | 'light';
+  mode?: 'dark' | 'light' | 'auto';
   className?: string;
 }
 
 const InlineError = ({
   children,
-  variant = 'light',
+  mode = 'auto',
   className = ''
 }: InlineErrorProps) => {
+  // Determine if we should use adaptive mode
+  const isAdaptive = mode === 'auto';
+  const effectiveVariant = mode === 'auto' ? undefined : mode;
+
   const variantClasses = {
     dark: 'text-red-400',
     light: 'text-red-600',
@@ -19,7 +24,7 @@ const InlineError = ({
     <div
       className={`
         text-sm leading-5
-        ${variantClasses[variant]}
+        ${isAdaptive ? 'text-red-600 dark:text-red-400' : variantClasses[effectiveVariant!]}
         ${className}
       `}
       role="alert"

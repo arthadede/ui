@@ -9,9 +9,10 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    mode: {
       control: 'select',
-      options: ['dark', 'light'],
+      options: ['dark', 'light', 'auto'],
+      description: 'Theme mode (dark, light, or auto for system detection)',
     },
   },
 } satisfies Meta<typeof InlineError>;
@@ -21,47 +22,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: 'light',
     children: 'This field is required',
   },
-};
-
-export const ValidationError: Story = {
-  args: {
-    variant: 'light',
-    children: 'Please enter a valid email address',
-  },
-};
-
-export const AuthenticationError: Story = {
-  args: {
-    variant: 'light',
-    children: 'Invalid email or password. Please try again.',
-  },
-};
-
-export const Dark: Story = {
-  args: {
-    variant: 'dark',
-    children: 'This field is required',
-  },
-};
-
-export const DarkAuthenticationError: Story = {
-  args: {
-    variant: 'dark',
-    children: 'Authentication failed. Please check your credentials.',
-  },
-};
-
-export const WithIcon: Story = {
-  args: {
-    variant: 'light',
-    children: (
-      <div className="flex items-center gap-2">
-        <span className="text-red-500">⚠</span>
-        <span>Please enter a valid email address</span>
-      </div>
-    ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'InlineError component with adaptive theming. Defaults to auto-detect light/dark mode. Try different error messages and mode options to see the adaptive behavior. You can also pass complex children with icons.',
+      },
+    },
   },
 };

@@ -11,7 +11,7 @@ const meta = {
   tags: ['autodocs', 'component'],
   argTypes: {
     name: {
-      control: 'select',
+      control: { type: 'select' },
       options: [
         'logo',
         'circle',
@@ -28,16 +28,23 @@ const meta = {
         'notification',
         'progress',
         'upload',
+        'cloud-upload',
+        'email',
+        'lock',
+        'spinner',
+        'chevron-right',
       ],
       description: 'Name of the icon to display',
     },
     size: {
-      control: { type: 'select', options: ['sm', 'md', 'lg'] as ComponentSize[] },
-      description: 'Size token for the icon (sm=20px, md=24px, lg=28px)',
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Size token for the icon (sm=20px, md=24px, lg=28px, xl=32px)',
     },
-    variant: {
-      control: { type: 'select', options: ['dark', 'light'] },
-      description: 'Color variant for the icon (dark=black text, light=white text)',
+    mode: {
+      control: { type: 'select' },
+      options: ['dark', 'light', 'auto'],
+      description: 'Theme mode for the icon (dark, light, or auto for system detection)',
     }
   },
 } satisfies Meta<typeof Icon>;
@@ -49,6 +56,12 @@ export const Default: Story = {
   args: {
     name: 'search',
     size: 'md',
-    variant: 'light',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Icon component with adaptive theming. Defaults to auto-detect light/dark mode. Try different icons and mode options to see the behavior.',
+      },
+    },
   },
 };

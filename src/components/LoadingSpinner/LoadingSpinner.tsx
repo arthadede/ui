@@ -1,13 +1,13 @@
 
 export interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  variant?: 'dark' | 'light';
+  mode?: 'dark' | 'light' | 'auto';
   className?: string;
 }
 
 const LoadingSpinner = ({
   size = 'md',
-  variant = 'light',
+  mode = 'auto',
   className = ''
 }: LoadingSpinnerProps) => {
   const sizeClasses = {
@@ -27,7 +27,7 @@ const LoadingSpinner = ({
       className={`
         animate-spin
         ${sizeClasses[size]}
-        ${variantClasses[variant]}
+        ${mode === 'auto' ? 'text-gray-600 dark:text-gray-300' : variantClasses[mode]}
         ${className}
       `}
       role="status"

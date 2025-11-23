@@ -1,25 +1,30 @@
 
 import { getComponentVariant } from '../../tokens';
+import { getAdaptiveVariantClassesString } from '../../tokens/color';
 
 export interface DividerProps {
   text?: string;
-  variant?: 'dark' | 'light';
+  mode?: 'dark' | 'light' | 'auto';
   className?: string;
 }
 
 const Divider = ({
   text = 'OR',
-  variant = 'light',
+  mode = 'auto',
   className = ''
 }: DividerProps) => {
-  const surfaceVariant = variant === 'dark' ? 'surface-dark' : 'surface-light';
+  // Determine if we should use adaptive mode
+  const isAdaptive = mode === 'auto';
+  const effectiveVariant = mode === 'auto' ? undefined : mode;
+
+  const surfaceVariant = effectiveVariant === 'dark' ? 'surface-dark' : 'surface-light';
   const variantTokens = getComponentVariant(surfaceVariant);
 
   if (!text) {
     return (
       <div className={`
         border-t
-        ${variantTokens.border}
+        ${isAdaptive ? 'border-gray-200 dark:border-gray-800' : variantTokens.border}
         ${className}
       `} />
     );
@@ -31,13 +36,12 @@ const Divider = ({
       ${className}
     `}>
       <div className="absolute inset-0 flex items-center">
-        <div className="w-full border-t" />
+        <div className={`w-full border-t ${isAdaptive ? 'border-gray-200 dark:border-gray-800' : variantTokens.border}`} />
       </div>
       <div className="relative flex justify-center text-sm">
         <span className={`
           px-4
-          ${variantTokens.background}
-          ${variantTokens.text}
+          ${isAdaptive ? getAdaptiveVariantClassesString('card') : `${variantTokens.background} ${variantTokens.text}`}
         `}>
           {text}
         </span>

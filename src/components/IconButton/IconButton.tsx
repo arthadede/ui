@@ -7,13 +7,13 @@ import { getSizeClasses, getVariantClasses, getTypographyForSize, getAdaptiveVar
 export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> & {
   iconName: string;
   size?: ComponentSize;
-  variant?: "dark" | "light";
+  mode?: "dark" | "light" | "auto";
 };
 
 export default function IconButton({
   iconName,
   size = "md",
-  variant,
+  mode = "auto",
   disabled,
   ...rest
 }: IconButtonProps) {
@@ -22,7 +22,7 @@ export default function IconButton({
 
   const sizeClasses = getSizeClasses(size);
   const typographyClasses = getTypographyForSize(size);
-  const variantClasses = variant ? getVariantClasses(variant) : getAdaptiveVariantClassesString('button');
+  const variantClasses = mode === "auto" ? getAdaptiveVariantClassesString('button') : getVariantClasses(mode);
 
   return (
     <button
@@ -46,7 +46,7 @@ export default function IconButton({
           .filter(Boolean)
           .join(" ")}
       >
-        <Icon name={iconName} size={sizeClasses.iconSize} variant={variant} />
+        <Icon name={iconName} size={sizeClasses.iconSize} mode={mode} />
       </span>
     </button>
   );

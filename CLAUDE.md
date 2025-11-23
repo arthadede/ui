@@ -109,7 +109,24 @@ This ensures the component is available when consumers import from `@histweety/u
 
 ### Storybook Integration
 
-Stories follow the CSF3 (Component Story Format 3) pattern:
+Stories follow the CSF3 (Component Story Format 3) pattern with strict conventions:
+
+**🚨 MANDATORY CONVENTIONS:**
+
+1. **Single "Default" Story Only**: Every component must have exactly ONE story named "Default". No additional stories allowed.
+   - ❌ WRONG: Multiple stories (Light, Dark, Sizes, etc.)
+   - ✅ CORRECT: Only `export const Default: Story = { args: { /* ... */ } };`
+
+2. **UI-Storybook Sync**: Every UI change MUST include corresponding Storybook story updates.
+   - Modified props? Update the Default story args
+   - Added new variants? Document them in the Default story
+   - Changed behavior? Update the story to reflect it
+
+3. **Adaptive Variants Required**: Any component with theme variants MUST use adaptive variants for automatic light/dark mode detection.
+   - Use existing adaptive infrastructure (`getAdaptiveVariantClassesString`, `useTheme`)
+   - Components default to `'auto'` mode for automatic light/dark detection
+   - Never hardcode light/dark modes - let the system detect automatically
+   - **Important**: Use `mode` prop for theme variants (light/dark/auto), `variant` for semantic variants
 
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react';
@@ -127,11 +144,58 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { /* ... */ },
+  args: {
+    // Show all variants and states in this single story
+    // mode defaults to 'auto' for adaptive behavior
+    size: 'md',
+    // ...other props demonstrating different configurations
+  },
 };
 ```
 
 Stories are automatically discovered via the pattern in `.storybook/main.ts`.
+
+## Prop Naming Conventions
+
+**🚨 IMPORTANT: Clear distinction between prop types**
+
+### Theme Modes (`mode`)
+Used for **theme variants** (light/dark presentation):
+- **Components with `mode` prop**: Button, IconButton, Icon, Input, Card, LoadingSpinner, Divider, InlineError, LoginCard, ErrorCard
+- **Type**: `'light' | 'dark' | 'auto'`
+- **Usage**: Controls visual theme presentation
+- **Default**: `'auto'` (auto-detects system preference)
+
+```tsx
+// ✅ CORRECT - Theme mode
+<Button mode="dark" />
+<Card mode="light" />
+<Icon /> // Defaults to 'auto' - detects system theme
+```
+
+### Semantic Variants (`variant`)
+Used for **semantic meaning** or structural differences:
+- **Components with `variant` prop**: Text, Chip
+- **Type**: `'h1' | 'h2' | 'body'` (Text), `'success' | 'error' | 'warning'` (Chip)
+- **Usage**: Controls semantic presentation, not theme
+- **Default**: Component-specific
+
+```tsx
+// ✅ CORRECT - Semantic variants
+<Text variant="h1" />
+<Chip state="success" />
+```
+
+### Status Indicators (`state`)
+Used for **conditional states**:
+- **Components with `state` prop**: Chip
+- **Type**: `'processing' | 'success' | 'error' | 'info' | 'default'`
+- **Usage**: Indicates status/condition
+
+```tsx
+// ✅ CORRECT - Status indicators
+<Chip state="success" />
+```
 
 ## Component Development Workflow
 

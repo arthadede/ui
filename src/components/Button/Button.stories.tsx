@@ -9,10 +9,10 @@ const meta = {
   },
   tags: ['autodocs', 'component'],
   argTypes: {
-    variant: {
+    mode: {
       control: 'select',
-      options: ['dark', 'light'],
-      description: 'Visual style variant of the button (dark or light mode)',
+      options: ['dark', 'light', 'auto'],
+      description: 'Theme mode of the button (dark, light, or auto for system detection)',
     },
     size: {
       control: 'select',
@@ -77,7 +77,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: 'dark',
     children: 'Button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Button component with adaptive theming. Defaults to auto-detect light/dark mode. Try different mode options and icon combinations to see the behavior.',
+      },
+    },
   },
 };
