@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ErrorCard from './ErrorCard';
 
 const meta = {
-  title: 'Pages/ErrorCard',
+  title: 'Widgets/ErrorCard',
   component: ErrorCard,
   parameters: {
     layout: 'fullscreen',

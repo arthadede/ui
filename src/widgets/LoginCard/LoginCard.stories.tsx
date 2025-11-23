@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import LoginCard from './LoginCard';
 
 const meta = {
-  title: 'Pages/LoginCard',
+  title: 'Widgets/LoginCard',
   component: LoginCard,
   parameters: {
     layout: 'fullscreen',
