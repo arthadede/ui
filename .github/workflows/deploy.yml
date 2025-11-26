@@ -2,10 +2,8 @@ name: Push Build to Docker Hub
 
 on:
   push:
-    branches:
-      - master
     tags:
-      - 'v*'
+      - 'latest'
   release:
     types: [published]
 
@@ -41,10 +39,6 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/ui
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
             type=raw,value=latest
 
       - name: Build and push Docker image
