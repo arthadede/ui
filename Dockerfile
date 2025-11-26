@@ -30,28 +30,7 @@ RUN npm ci
 COPY . .
 
 # Expose port for Storybook
-EXPOSE 6006
+EXPOSE 3000
 
 # Default command for development
 CMD ["npm", "run", "storybook"]
-
-# Production stage
-FROM node:20-alpine AS production
-
-WORKDIR /app
-
-# Copy package files and install production dependencies
-COPY package.json package-lock.json* ./
-RUN npm ci --only=production && npm cache clean --force
-
-# Copy built files from builder stage
-COPY --from=builder /app/dist ./dist
-
-# Copy package.json for version info
-COPY package.json ./
-
-# Expose port for Storybook
-EXPOSE 6006
-
-# Default command
-CMD ["echo", "Production image - use development image for Storybook"]
