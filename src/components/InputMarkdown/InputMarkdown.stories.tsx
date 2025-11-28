@@ -70,10 +70,19 @@ And another new line.
 
 Blank lines create paragraphs.
 
+## Multiple Blank Lines Support
+Test 1
+
+
+Test 2
+
+You can add multiple blank lines and they will be preserved in the preview!
+
 ## Features
 
 - Rich text formatting
 - Live preview with newline support
+- Multiple blank lines preserved
 - Keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+K, Ctrl+S)
 - Word count
 - Auto-save support

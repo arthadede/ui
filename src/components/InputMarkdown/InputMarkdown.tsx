@@ -14,6 +14,8 @@ import React, { useRef, useState, useCallback, useEffect, useMemo } from "react"
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 import { Toolbar } from "./Toolbar";
 import { EditorContext, InputMarkdownProps } from "./types";
 import { defaultToolbarActions } from "./config";
@@ -170,6 +172,16 @@ export default function InputMarkdown({
     [editorContext, content, onSave]
   );
 
+  // Process content to preserve multiple consecutive blank lines
+  const processedContent = useMemo(() => {
+    // Replace sequences of 3+ newlines with explicit breaks
+    // This preserves multiple blank lines in the preview
+    return content.replace(/\n\n\n+/g, (match) => {
+      const blankLines = match.length - 2; // Number of extra blank lines
+      return '\n\n' + '<br/>'.repeat(blankLines) + '\n';
+    });
+  }, [content]);
+
   const getThemeClasses = () => {
     if (mode === "auto") {
       return "bg-white dark:bg-gray-900 text-black dark:text-gray-100 border-gray-300 dark:border-gray-700";
@@ -265,7 +277,12 @@ export default function InputMarkdown({
         ) : (
           <div className="h-full overflow-auto p-4">
             <article className={getProseClasses()}>
-              <ReactMarkdown remarkPlugins={[remarkBreaks, remarkGfm]}>{content}</ReactMarkdown>
+              <ReactMarkdown
+                remarkPlugins={[remarkBreaks, remarkGfm]}
+                rehypePlugins={[rehypeRaw, rehypeSanitize]}
+              >
+                {processedContent}
+              </ReactMarkdown>
             </article>
           </div>
         )}
