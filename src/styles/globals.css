@@ -363,8 +363,20 @@ body {
 .mdx-editor-dark [class*='_contentEditable'] p,
 .mdx-editor-dark [class*='_contentEditable'] div,
 .mdx-editor-dark [class*='_contentEditable'] span,
-.mdx-editor-dark [class*='_contentEditable'] li {
+.mdx-editor-dark [class*='_contentEditable'] li,
+.mdx-editor-dark [class*='_contentEditable'] td {
   color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Auto mode dark preference */
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto [class*='_contentEditable'] p,
+  .mdx-editor-auto [class*='_contentEditable'] div,
+  .mdx-editor-auto [class*='_contentEditable'] span,
+  .mdx-editor-auto [class*='_contentEditable'] li,
+  .mdx-editor-auto [class*='_contentEditable'] td {
+    color: var(--md-sys-color-on-surface) !important;
+  }
 }
 
 /* Toolbar Styling - Clean and minimal */
@@ -377,7 +389,7 @@ body {
 
 /* Toolbar Buttons */
 .mdx-editor-wrapper [class*='_toolbarRoot'] button {
-  color: var(--md-sys-color-on-surface);
+  color: var(--md-sys-color-on-surface) !important;
   border-radius: 4px;
   padding: 6px 10px;
   transition: all 0.15s ease;
@@ -387,12 +399,27 @@ body {
 
 .mdx-editor-wrapper [class*='_toolbarRoot'] button:hover {
   background: var(--md-sys-color-surface);
-  color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-primary) !important;
 }
 
 .mdx-editor-wrapper [class*='_toolbarRoot'] button[data-active='true'] {
   background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  color: var(--md-sys-color-on-primary) !important;
+}
+
+/* Toolbar Button Icons/SVGs */
+.mdx-editor-wrapper [class*='_toolbarRoot'] button svg {
+  fill: currentColor;
+  color: inherit;
+}
+
+/* Toolbar Dropdowns and Selects */
+.mdx-editor-wrapper [class*='_toolbarRoot'] select {
+  color: var(--md-sys-color-on-surface) !important;
+  background: var(--md-sys-color-surface-variant);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 4px;
+  padding: 4px 8px;
 }
 
 /* Toolbar Separators */
@@ -447,7 +474,7 @@ body {
 
 .mdx-editor-wrapper h6 {
   font-size: 1em;
-  color: var(--typora-meta-color);
+  color: var(--typora-meta-color) !important;
 }
 
 /* Paragraphs */
@@ -492,17 +519,27 @@ body {
 
 .mdx-editor-wrapper blockquote p {
   margin: 0.4em 0;
+  color: inherit !important;
+}
+
+.mdx-editor-wrapper blockquote * {
+  color: inherit;
 }
 
 /* Code Blocks */
 .mdx-editor-wrapper pre {
-  background: var(--md-sys-color-surface-variant);
+  background: var(--md-sys-color-surface-variant) !important;
   border: var(--typora-border);
   border-radius: var(--typora-border-radius);
   padding: 16px;
   margin: 1.2em 0;
   overflow-x: auto;
   font-size: 0.9em;
+}
+
+.mdx-editor-wrapper pre code {
+  color: var(--md-sys-color-on-surface) !important;
+  background: transparent !important;
 }
 
 .mdx-editor-wrapper code {
@@ -512,7 +549,7 @@ body {
 }
 
 .mdx-editor-wrapper :not(pre) > code {
-  background: var(--md-sys-color-surface-variant);
+  background: var(--md-sys-color-surface-variant) !important;
   padding: 0.2em 0.4em;
   border-radius: 3px;
   color: var(--md-sys-color-primary) !important;
@@ -531,16 +568,21 @@ body {
   border: var(--typora-border);
   padding: 10px 14px;
   text-align: left;
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .mdx-editor-wrapper th {
   background: var(--md-sys-color-surface-variant);
   font-weight: 600;
-  color: var(--typora-heading-color);
+  color: var(--typora-heading-color) !important;
 }
 
 .mdx-editor-wrapper tr:hover {
   background: var(--md-sys-color-surface-variant);
+}
+
+.mdx-editor-wrapper tr:hover td {
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 /* Horizontal Rules */
@@ -573,8 +615,50 @@ body {
 
 /* Placeholder Styling */
 .mdx-editor-wrapper [class*='_placeholder'] {
-  color: var(--typora-meta-color);
+  color: var(--typora-meta-color) !important;
   font-style: italic;
+}
+
+/* ========================================
+   Dialogs, Modals, and Popups
+   ======================================== */
+
+/* Link Dialog */
+.mdx-editor-wrapper [class*='_dialogRoot'],
+.mdx-editor-wrapper [class*='_dialog'] {
+  background: var(--md-sys-color-surface) !important;
+  border: var(--typora-border);
+  border-radius: var(--typora-border-radius);
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Dialog Inputs */
+.mdx-editor-wrapper [class*='_dialog'] input,
+.mdx-editor-wrapper [class*='_dialog'] textarea {
+  background: var(--md-sys-color-surface-variant) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+.mdx-editor-wrapper [class*='_dialog'] input:focus,
+.mdx-editor-wrapper [class*='_dialog'] textarea:focus {
+  outline: none;
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(66, 139, 202, 0.1);
+}
+
+/* Dark mode dialog focus */
+.mdx-editor-dark [class*='_dialog'] input:focus,
+.mdx-editor-dark [class*='_dialog'] textarea:focus {
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.15);
+}
+
+/* Dialog Labels */
+.mdx-editor-wrapper [class*='_dialog'] label {
+  color: var(--md-sys-color-on-surface) !important;
+  font-weight: 500;
 }
 
 /* Selection Color - Mode specific */
