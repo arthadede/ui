@@ -61,15 +61,9 @@ export default function InputMarkdown({
   if (!isMounted) {
     return (
       <div
-        className={`flex min-h-[400px] items-center justify-center rounded-lg border ${
-          mode === "dark"
-            ? "border-gray-700 bg-gray-900"
-            : mode === "light"
-              ? "border-gray-300 bg-white"
-              : "border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900"
-        } ${className}`}
+        className={`mdx-editor-wrapper ${getThemeClass()} flex min-h-[400px] items-center justify-center ${className}`}
       >
-        <div className="text-gray-500 dark:text-gray-400">Loading editor...</div>
+        <div style={{ color: "var(--typora-meta-color)" }}>Loading editor...</div>
       </div>
     );
   }

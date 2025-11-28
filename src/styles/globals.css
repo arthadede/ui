@@ -192,41 +192,509 @@ body {
   animation: zoomIn 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* MDXEditor Theme Customization */
+/* ========================================
+   MDXEditor Theme Customization - Typora-inspired
+   Clean, minimalist, distraction-free design
+   ======================================== */
+
+/* Base CSS Variables for Light Mode */
+.mdx-editor-light {
+  /* Colors - Typora-inspired palette */
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-on-surface: #333333;
+  --md-sys-color-primary: #428bca;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-surface-variant: #fafafa;
+  --md-sys-color-outline: #e5e5e5;
+
+  /* Typography */
+  --typora-font-size: 16px;
+  --typora-line-height: 1.6;
+  --typora-heading-color: #2e2e2e;
+  --typora-link-color: #428bca;
+  --typora-meta-color: #999999;
+
+  /* Spacing */
+  --typora-padding: 32px;
+  --typora-max-width: 860px;
+
+  /* Borders */
+  --typora-border: 1px solid #e5e5e5;
+  --typora-border-radius: 4px;
+}
+
+/* Dark Mode Variables */
 .mdx-editor-dark {
-  --md-sys-color-surface: #1a1a1a;
-  --md-sys-color-on-surface: #e5e5e5;
+  /* Colors - Dark theme with reduced contrast */
+  --md-sys-color-surface: #1e1e1e;
+  --md-sys-color-on-surface: #d4d4d4;
   --md-sys-color-primary: #60a5fa;
   --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-surface-variant: #2d2d2d;
+  --md-sys-color-surface-variant: #2a2a2a;
   --md-sys-color-outline: #404040;
+
+  /* Typography */
+  --typora-font-size: 16px;
+  --typora-line-height: 1.6;
+  --typora-heading-color: #e5e5e5;
+  --typora-link-color: #60a5fa;
+  --typora-meta-color: #808080;
+
+  /* Spacing */
+  --typora-padding: 32px;
+  --typora-max-width: 860px;
+
+  /* Borders */
+  --typora-border: 1px solid #404040;
+  --typora-border-radius: 4px;
 }
 
-.mdx-editor-light {
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-on-surface: #1a1a1a;
-  --md-sys-color-primary: #2563eb;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-surface-variant: #f5f5f5;
-  --md-sys-color-outline: #e5e5e5;
-}
-
+/* Auto Mode - Defaults to Light */
 .mdx-editor-auto {
+  /* Colors */
   --md-sys-color-surface: #ffffff;
-  --md-sys-color-on-surface: #1a1a1a;
-  --md-sys-color-primary: #2563eb;
+  --md-sys-color-on-surface: #333333;
+  --md-sys-color-primary: #428bca;
   --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-surface-variant: #f5f5f5;
+  --md-sys-color-surface-variant: #fafafa;
   --md-sys-color-outline: #e5e5e5;
+
+  /* Typography */
+  --typora-font-size: 16px;
+  --typora-line-height: 1.6;
+  --typora-heading-color: #2e2e2e;
+  --typora-link-color: #428bca;
+  --typora-meta-color: #999999;
+
+  /* Spacing */
+  --typora-padding: 32px;
+  --typora-max-width: 860px;
+
+  /* Borders */
+  --typora-border: 1px solid #e5e5e5;
+  --typora-border-radius: 4px;
 }
 
 @media (prefers-color-scheme: dark) {
   .mdx-editor-auto {
-    --md-sys-color-surface: #1a1a1a;
-    --md-sys-color-on-surface: #e5e5e5;
+    /* Colors */
+    --md-sys-color-surface: #1e1e1e;
+    --md-sys-color-on-surface: #d4d4d4;
     --md-sys-color-primary: #60a5fa;
     --md-sys-color-on-primary: #ffffff;
-    --md-sys-color-surface-variant: #2d2d2d;
+    --md-sys-color-surface-variant: #2a2a2a;
     --md-sys-color-outline: #404040;
+
+    /* Typography */
+    --typora-heading-color: #e5e5e5;
+    --typora-link-color: #60a5fa;
+    --typora-meta-color: #808080;
+
+    /* Borders */
+    --typora-border: 1px solid #404040;
+  }
+}
+
+/* ========================================
+   MDXEditor Component Styling
+   ======================================== */
+
+/* Wrapper Container - Base styles that work with all modes */
+.mdx-editor-wrapper {
+  border: var(--typora-border);
+  border-radius: var(--typora-border-radius);
+  background: var(--md-sys-color-surface);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.mdx-editor-wrapper:hover {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 1px var(--md-sys-color-primary);
+}
+
+/* Light mode focus */
+.mdx-editor-light.mdx-editor-wrapper:focus-within {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(66, 139, 202, 0.1);
+}
+
+/* Dark mode focus */
+.mdx-editor-dark.mdx-editor-wrapper:focus-within {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.15);
+}
+
+/* Auto mode focus - adapts to system preference */
+.mdx-editor-auto.mdx-editor-wrapper:focus-within {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(66, 139, 202, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto.mdx-editor-wrapper:focus-within {
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.15);
+  }
+}
+
+/* Editor Root */
+.mdx-editor-wrapper [class*='_rootContentEditableWrapper'] {
+  background: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  font-size: var(--typora-font-size);
+  line-height: var(--typora-line-height);
+}
+
+/* Writing Area - Centered and max-width like Typora */
+.mdx-editor-wrapper [class*='_contentEditable'] {
+  max-width: var(--typora-max-width);
+  margin: 0 auto;
+  padding: var(--typora-padding);
+  min-height: 400px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Ensure all text elements inherit the correct color in dark mode */
+.mdx-editor-dark [class*='_contentEditable'] * {
+  color: inherit;
+}
+
+.mdx-editor-dark [class*='_contentEditable'] p,
+.mdx-editor-dark [class*='_contentEditable'] div,
+.mdx-editor-dark [class*='_contentEditable'] span,
+.mdx-editor-dark [class*='_contentEditable'] li,
+.mdx-editor-dark [class*='_contentEditable'] td {
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Auto mode dark preference */
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto [class*='_contentEditable'] p,
+  .mdx-editor-auto [class*='_contentEditable'] div,
+  .mdx-editor-auto [class*='_contentEditable'] span,
+  .mdx-editor-auto [class*='_contentEditable'] li,
+  .mdx-editor-auto [class*='_contentEditable'] td {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+}
+
+/* Toolbar Styling - Clean and minimal */
+.mdx-editor-wrapper [class*='_toolbarRoot'] {
+  background: var(--md-sys-color-surface-variant);
+  border-bottom: var(--typora-border);
+  padding: 8px 16px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Toolbar Buttons */
+.mdx-editor-wrapper [class*='_toolbarRoot'] button {
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: 4px;
+  padding: 6px 10px;
+  transition: all 0.15s ease;
+  border: none;
+  background: transparent;
+}
+
+.mdx-editor-wrapper [class*='_toolbarRoot'] button:hover {
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-primary) !important;
+}
+
+.mdx-editor-wrapper [class*='_toolbarRoot'] button[data-active='true'] {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary) !important;
+}
+
+/* Toolbar Button Icons/SVGs */
+.mdx-editor-wrapper [class*='_toolbarRoot'] button svg {
+  fill: currentColor;
+  color: inherit;
+}
+
+/* Toolbar Dropdowns and Selects */
+.mdx-editor-wrapper [class*='_toolbarRoot'] select {
+  color: var(--md-sys-color-on-surface) !important;
+  background: var(--md-sys-color-surface-variant);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+/* Toolbar Separators */
+.mdx-editor-wrapper [class*='_toolbarRoot'] [class*='_separator'] {
+  background: var(--md-sys-color-outline);
+  width: 1px;
+  margin: 0 8px;
+}
+
+/* ========================================
+   Typography Elements - Typora-inspired
+   ======================================== */
+
+/* Headings */
+.mdx-editor-wrapper h1,
+.mdx-editor-wrapper h2,
+.mdx-editor-wrapper h3,
+.mdx-editor-wrapper h4,
+.mdx-editor-wrapper h5,
+.mdx-editor-wrapper h6 {
+  color: var(--typora-heading-color) !important;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+.mdx-editor-wrapper h1 {
+  font-size: 2.25em;
+  border-bottom: var(--typora-border);
+  padding-bottom: 0.3em;
+  margin-top: 0;
+}
+
+.mdx-editor-wrapper h2 {
+  font-size: 1.85em;
+  border-bottom: var(--typora-border);
+  padding-bottom: 0.25em;
+}
+
+.mdx-editor-wrapper h3 {
+  font-size: 1.5em;
+}
+
+.mdx-editor-wrapper h4 {
+  font-size: 1.25em;
+}
+
+.mdx-editor-wrapper h5 {
+  font-size: 1.1em;
+}
+
+.mdx-editor-wrapper h6 {
+  font-size: 1em;
+  color: var(--typora-meta-color) !important;
+}
+
+/* Paragraphs */
+.mdx-editor-wrapper p {
+  margin: 0.8em 0;
+  line-height: var(--typora-line-height);
+}
+
+/* Links */
+.mdx-editor-wrapper a {
+  color: var(--typora-link-color) !important;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.mdx-editor-wrapper a:hover {
+  border-bottom-color: var(--typora-link-color);
+}
+
+/* Lists */
+.mdx-editor-wrapper ul,
+.mdx-editor-wrapper ol {
+  margin: 0.8em 0;
+  padding-left: 2em;
+}
+
+.mdx-editor-wrapper li {
+  margin: 0.3em 0;
+  line-height: var(--typora-line-height);
+}
+
+/* Blockquotes */
+.mdx-editor-wrapper blockquote {
+  margin: 1.5em 0;
+  padding: 0.8em 1.2em;
+  border-left: 4px solid var(--md-sys-color-primary);
+  background: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: 0 var(--typora-border-radius) var(--typora-border-radius) 0;
+}
+
+.mdx-editor-wrapper blockquote p {
+  margin: 0.4em 0;
+  color: inherit !important;
+}
+
+.mdx-editor-wrapper blockquote * {
+  color: inherit;
+}
+
+/* Code Blocks */
+.mdx-editor-wrapper pre {
+  background: var(--md-sys-color-surface-variant) !important;
+  border: var(--typora-border);
+  border-radius: var(--typora-border-radius);
+  padding: 16px;
+  margin: 1.2em 0;
+  overflow-x: auto;
+  font-size: 0.9em;
+}
+
+.mdx-editor-wrapper pre code {
+  color: var(--md-sys-color-on-surface) !important;
+  background: transparent !important;
+}
+
+.mdx-editor-wrapper code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  color: var(--md-sys-color-on-surface);
+}
+
+.mdx-editor-wrapper :not(pre) > code {
+  background: var(--md-sys-color-surface-variant) !important;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  color: var(--md-sys-color-primary) !important;
+}
+
+/* Tables */
+.mdx-editor-wrapper table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+}
+
+.mdx-editor-wrapper th,
+.mdx-editor-wrapper td {
+  border: var(--typora-border);
+  padding: 10px 14px;
+  text-align: left;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.mdx-editor-wrapper th {
+  background: var(--md-sys-color-surface-variant);
+  font-weight: 600;
+  color: var(--typora-heading-color) !important;
+}
+
+.mdx-editor-wrapper tr:hover {
+  background: var(--md-sys-color-surface-variant);
+}
+
+.mdx-editor-wrapper tr:hover td {
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Horizontal Rules */
+.mdx-editor-wrapper hr {
+  border: none;
+  border-top: 1px dashed var(--md-sys-color-outline);
+  margin: 2em 0;
+}
+
+/* Images */
+.mdx-editor-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--typora-border-radius);
+  margin: 1.2em 0;
+}
+
+/* ========================================
+   Focus Mode & Distraction-free
+   ======================================== */
+
+/* Fade toolbar on focus for distraction-free experience */
+.mdx-editor-wrapper:focus-within [class*='_toolbarRoot'] {
+  opacity: 0.3;
+}
+
+.mdx-editor-wrapper:focus-within [class*='_toolbarRoot']:hover {
+  opacity: 1;
+}
+
+/* Placeholder Styling */
+.mdx-editor-wrapper [class*='_placeholder'] {
+  color: var(--typora-meta-color) !important;
+  font-style: italic;
+}
+
+/* ========================================
+   Dialogs, Modals, and Popups
+   ======================================== */
+
+/* Link Dialog */
+.mdx-editor-wrapper [class*='_dialogRoot'],
+.mdx-editor-wrapper [class*='_dialog'] {
+  background: var(--md-sys-color-surface) !important;
+  border: var(--typora-border);
+  border-radius: var(--typora-border-radius);
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Dialog Inputs */
+.mdx-editor-wrapper [class*='_dialog'] input,
+.mdx-editor-wrapper [class*='_dialog'] textarea {
+  background: var(--md-sys-color-surface-variant) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+.mdx-editor-wrapper [class*='_dialog'] input:focus,
+.mdx-editor-wrapper [class*='_dialog'] textarea:focus {
+  outline: none;
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(66, 139, 202, 0.1);
+}
+
+/* Dark mode dialog focus */
+.mdx-editor-dark [class*='_dialog'] input:focus,
+.mdx-editor-dark [class*='_dialog'] textarea:focus {
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.15);
+}
+
+/* Dialog Labels */
+.mdx-editor-wrapper [class*='_dialog'] label {
+  color: var(--md-sys-color-on-surface) !important;
+  font-weight: 500;
+}
+
+/* Selection Color - Mode specific */
+.mdx-editor-light ::selection,
+.mdx-editor-auto ::selection {
+  background: rgba(66, 139, 202, 0.2);
+}
+
+.mdx-editor-dark ::selection {
+  background: rgba(96, 165, 250, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto ::selection {
+    background: rgba(96, 165, 250, 0.2);
+  }
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  .mdx-editor-wrapper [class*='_contentEditable'] {
+    padding: 20px 16px;
+  }
+
+  .mdx-editor-wrapper {
+    font-size: 15px;
+  }
+
+  .mdx-editor-wrapper h1 {
+    font-size: 1.8em;
+  }
+
+  .mdx-editor-wrapper h2 {
+    font-size: 1.5em;
   }
 }
