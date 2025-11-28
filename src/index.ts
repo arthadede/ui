@@ -57,6 +57,9 @@ export type { InputProps } from './components/Input';
 export { InputSelect } from './components/InputSelect';
 export type { InputSelectProps } from './components/InputSelect';
 
+export { InputMarkdown, defaultToolbarActions, minimalToolbarActions } from './components/InputMarkdown';
+export type { InputMarkdownProps, ToolbarAction, EditorContext } from './components/InputMarkdown';
+
 export { Autocomplete } from './components/Autocomplete';
 export type { AutocompleteProps } from './components/Autocomplete';
 
