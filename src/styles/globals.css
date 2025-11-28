@@ -191,3 +191,16 @@ body {
 .animate-zoom-in {
   animation: zoomIn 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Ensure line breaks are visible in markdown preview */
+.prose br {
+  display: block;
+  content: '';
+  margin-top: 0;
+}
+
+.prose-invert br {
+  display: block;
+  content: '';
+  margin-top: 0;
+}

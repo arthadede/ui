@@ -265,7 +265,7 @@ export default function InputMarkdown({
         ) : (
           <div className="h-full overflow-auto p-4">
             <article className={getProseClasses()}>
-              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkBreaks, remarkGfm]}>{content}</ReactMarkdown>
             </article>
           </div>
         )}
