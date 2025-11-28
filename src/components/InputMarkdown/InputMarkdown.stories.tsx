@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import InputMarkdown from './InputMarkdown';
-import { defaultToolbarActions, minimalToolbarActions } from './config';
 
 const meta = {
   title: 'Components/InputMarkdown',
@@ -8,18 +7,6 @@ const meta = {
   parameters: { layout: 'padded' },
   tags: ['autodocs', 'component'],
   argTypes: {
-    toolbar: {
-      control: 'select',
-      options: {
-        'Default': defaultToolbarActions,
-        'Minimal': minimalToolbarActions,
-      },
-      description: 'Toolbar configuration with formatting actions',
-    },
-    enablePreview: {
-      control: 'boolean',
-      description: 'Enable/disable preview toggle',
-    },
     defaultValue: {
       control: 'text',
       description: 'Initial markdown content',
@@ -28,26 +15,14 @@ const meta = {
       control: 'text',
       description: 'Placeholder text when empty',
     },
-    minHeight: {
-      control: 'text',
-      description: 'Minimum height of the editor (CSS value)',
-    },
-    maxHeight: {
-      control: 'text',
-      description: 'Maximum height of the editor (CSS value)',
-    },
     mode: {
       control: 'select',
       options: ['dark', 'light', 'auto'],
       description: 'Theme mode (dark, light, or auto for system detection)',
     },
-    showWordCount: {
+    readOnly: {
       control: 'boolean',
-      description: 'Show word and character count',
-    },
-    autoSave: {
-      control: 'boolean',
-      description: 'Enable auto-save after 2 seconds of inactivity',
+      description: 'Make the editor read-only',
     },
     className: {
       control: 'text',
@@ -61,35 +36,29 @@ type Story = StoryObj<typeof meta>;
 
 const sampleMarkdown = `# Welcome to InputMarkdown
 
-This is a **powerful** markdown editor with _live preview_.
+This is a **powerful** WYSIWYG markdown editor with _Typora-like_ experience.
 
-## Newlines Support
-Single newlines work!
-This is on a new line.
-And another new line.
+## Perfect Newline Handling
+Line 1
+Line 2
+Line 3
 
-Blank lines create paragraphs.
+All newlines and blank lines are preserved exactly as you type!
 
-## Exact Blank Line Preservation
-Line 0: Test
-
-Line 2: Test
+Test 1
 
 
-Line 5: Test
-
-All blank lines are preserved exactly as you type them!
-- One blank line between first and second
-- Two blank lines between second and third
+Test 2
 
 ## Features
 
-- Rich text formatting
-- Live preview with newline support
-- Multiple blank lines preserved
-- Keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+K, Ctrl+S)
-- Word count
-- Auto-save support
+- ✅ WYSIWYG editing (no separate preview mode)
+- ✅ Perfect newline and blank line preservation
+- ✅ Rich text formatting toolbar
+- ✅ Tables, images, links support
+- ✅ Code blocks with syntax highlighting
+- ✅ Keyboard shortcuts (Cmd/Ctrl+B, Cmd/Ctrl+I, etc.)
+- ✅ Dark mode support
 
 ### Code Example
 
@@ -97,37 +66,51 @@ All blank lines are preserved exactly as you type them!
 function greet(name) {
   return \`Hello, \${name}!\`;
 }
+
+greet("World");
 \`\`\`
 
 ### Task List
 
-- [x] Create component
+- [x] Implement WYSIWYG editor
 - [x] Add toolbar
-- [ ] Add more features
+- [x] Support all markdown features
+- [ ] Customize theme
 
-> This is a blockquote. You can use it to highlight important information.
+> This is a blockquote. The editor handles all markdown features natively!
 
 [Link to GitHub](https://github.com)
 
 | Feature | Status |
 |---------|--------|
-| Preview | ✓ |
+| WYSIWYG | ✓ |
+| Newlines | ✓ |
 | Toolbar | ✓ |
-| Shortcuts | ✓ |
 `;
 
 export const Default: Story = {
   args: {
     defaultValue: sampleMarkdown,
-    enablePreview: true,
-    showWordCount: true,
     mode: 'auto',
-    toolbar: defaultToolbarActions,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Default InputMarkdown with full toolbar and preview. Try editing and switching to preview mode.',
+        story: 'Default InputMarkdown with WYSIWYG editing powered by MDXEditor. No preview mode needed - what you see is what you get!',
+      },
+    },
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    placeholder: 'Start typing your markdown here...',
+    mode: 'auto',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Empty editor with placeholder text.',
       },
     },
   },
@@ -136,13 +119,12 @@ export const Default: Story = {
 export const LightMode: Story = {
   args: {
     defaultValue: '# Light Mode\n\nThis editor is in **light mode**.',
-    enablePreview: true,
     mode: 'light',
   },
   parameters: {
     docs: {
       description: {
-        story: 'InputMarkdown with light mode theme.',
+        story: 'Editor with light mode theme.',
       },
     },
   },
@@ -151,112 +133,44 @@ export const LightMode: Story = {
 export const DarkMode: Story = {
   args: {
     defaultValue: '# Dark Mode\n\nThis editor is in **dark mode**.',
-    enablePreview: true,
     mode: 'dark',
   },
   parameters: {
     docs: {
       description: {
-        story: 'InputMarkdown with dark mode theme.',
+        story: 'Editor with dark mode theme.',
       },
     },
   },
 };
 
-export const MinimalToolbar: Story = {
+export const ReadOnly: Story = {
   args: {
-    defaultValue: '# Minimal Editor\n\nThis editor has a minimal toolbar with just **bold**, _italic_, headings, and links.',
-    toolbar: minimalToolbarActions,
-    enablePreview: true,
+    defaultValue: '# Read-Only Mode\n\nThis editor is **read-only**. You cannot edit the content.',
+    readOnly: true,
     mode: 'auto',
   },
   parameters: {
     docs: {
       description: {
-        story: 'InputMarkdown with a minimal toolbar containing only essential formatting options.',
+        story: 'Read-only mode - useful for displaying markdown content.',
       },
     },
   },
 };
 
-export const NoPreview: Story = {
+export const WithCallback: Story = {
   args: {
-    defaultValue: '# Editor Only\n\nThis editor has no preview mode.',
-    enablePreview: false,
-    mode: 'auto',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'InputMarkdown without preview toggle - editor only mode.',
-      },
-    },
-  },
-};
-
-export const CustomHeight: Story = {
-  args: {
-    defaultValue: '# Custom Height\n\nThis editor has a custom height.',
-    minHeight: '200px',
-    maxHeight: '300px',
-    mode: 'auto',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'InputMarkdown with custom minimum and maximum height.',
-      },
-    },
-  },
-};
-
-export const WithAutoSave: Story = {
-  args: {
-    defaultValue: '# Auto-save Enabled\n\nChanges will be auto-saved after 2 seconds of inactivity.',
-    autoSave: true,
-    onSave: (content: string) => {
-      console.log('Auto-saved:', content);
-    },
-    mode: 'auto',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'InputMarkdown with auto-save enabled. Check the console to see auto-save triggers.',
-      },
-    },
-  },
-};
-
-export const Empty: Story = {
-  args: {
-    placeholder: 'Start writing your markdown here...',
-    mode: 'auto',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Empty InputMarkdown with placeholder text.',
-      },
-    },
-  },
-};
-
-export const WithCallbacks: Story = {
-  args: {
-    defaultValue: '# Callbacks Demo\n\nTry editing and saving (Ctrl+S).',
+    defaultValue: '# Callbacks Demo\n\nTry editing this content and check the console.',
     onChange: (content: string) => {
       console.log('Content changed:', content);
     },
-    onSave: (content: string) => {
-      console.log('Saved:', content);
-    },
     mode: 'auto',
   },
   parameters: {
     docs: {
       description: {
-        story: 'InputMarkdown with onChange and onSave callbacks. Open the console to see the callbacks in action.',
+        story: 'Editor with onChange callback. Open the console to see content changes.',
       },
     },
   },

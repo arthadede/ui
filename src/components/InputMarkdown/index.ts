@@ -1,8 +1,6 @@
 /**
- * InputMarkdown - Markdown Editor Component
+ * InputMarkdown - WYSIWYG Markdown Editor powered by MDXEditor
  */
 
 export { default as InputMarkdown } from "./InputMarkdown";
-export { Toolbar } from "./Toolbar";
-export { defaultToolbarActions, minimalToolbarActions } from "./config";
-export type { ToolbarAction, EditorContext, InputMarkdownProps } from "./types";
+export type { InputMarkdownProps } from "./types";

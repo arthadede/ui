@@ -71,6 +71,7 @@
     "url": ""
   },
   "dependencies": {
+    "@mdxeditor/editor": "^3.50.0",
     "@tailwindcss/typography": "^0.5.19",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
