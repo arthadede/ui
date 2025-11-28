@@ -70,13 +70,17 @@ And another new line.
 
 Blank lines create paragraphs.
 
-## Multiple Blank Lines Support
-Test 1
+## Exact Blank Line Preservation
+Line 0: Test
+
+Line 2: Test
 
 
-Test 2
+Line 5: Test
 
-You can add multiple blank lines and they will be preserved in the preview!
+All blank lines are preserved exactly as you type them!
+- One blank line between first and second
+- Two blank lines between second and third
 
 ## Features
 

@@ -172,13 +172,13 @@ export default function InputMarkdown({
     [editorContext, content, onSave]
   );
 
-  // Process content to preserve multiple consecutive blank lines
+  // Process content to preserve ALL blank lines exactly as typed
   const processedContent = useMemo(() => {
-    // Replace sequences of 3+ newlines with explicit breaks
-    // This preserves multiple blank lines in the preview
-    return content.replace(/\n\n\n+/g, (match) => {
-      const blankLines = match.length - 2; // Number of extra blank lines
-      return '\n\n' + '<br/>'.repeat(blankLines) + '\n';
+    // Replace all sequences of 2+ newlines with explicit <br/> tags
+    // Each blank line gets its own <br/> tag
+    return content.replace(/\n{2,}/g, (match) => {
+      const blankLineCount = match.length - 1; // Number of blank lines
+      return '\n' + '<br/>\n'.repeat(blankLineCount);
     });
   }, [content]);
 
