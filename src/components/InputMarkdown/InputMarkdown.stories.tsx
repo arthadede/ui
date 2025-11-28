@@ -63,11 +63,18 @@ const sampleMarkdown = `# Welcome to InputMarkdown
 
 This is a **powerful** markdown editor with _live preview_.
 
+## Newlines Support
+Single newlines work!
+This is on a new line.
+And another new line.
+
+Blank lines create paragraphs.
+
 ## Features
 
 - Rich text formatting
-- Live preview
-- Keyboard shortcuts
+- Live preview with newline support
+- Keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+K, Ctrl+S)
 - Word count
 - Auto-save support
 

@@ -13,6 +13,7 @@
 import React, { useRef, useState, useCallback, useEffect, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 import { Toolbar } from "./Toolbar";
 import { EditorContext, InputMarkdownProps } from "./types";
 import { defaultToolbarActions } from "./config";
@@ -33,7 +34,7 @@ export default function InputMarkdown({
 }: InputMarkdownProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [content, setContent] = useState(defaultValue);
-  const [showPreview, setShowPreview] = useState(enablePreview);
+  const [showPreview, setShowPreview] = useState(false);
 
   // Calculate word and character count using useMemo
   const wordCount = useMemo(() => {
@@ -264,7 +265,7 @@ export default function InputMarkdown({
         ) : (
           <div className="h-full overflow-auto p-4">
             <article className={getProseClasses()}>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{content}</ReactMarkdown>
             </article>
           </div>
         )}
