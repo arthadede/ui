@@ -191,3 +191,42 @@ body {
 .animate-zoom-in {
   animation: zoomIn 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* MDXEditor Theme Customization */
+.mdx-editor-dark {
+  --md-sys-color-surface: #1a1a1a;
+  --md-sys-color-on-surface: #e5e5e5;
+  --md-sys-color-primary: #60a5fa;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-surface-variant: #2d2d2d;
+  --md-sys-color-outline: #404040;
+}
+
+.mdx-editor-light {
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-on-surface: #1a1a1a;
+  --md-sys-color-primary: #2563eb;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-surface-variant: #f5f5f5;
+  --md-sys-color-outline: #e5e5e5;
+}
+
+.mdx-editor-auto {
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-on-surface: #1a1a1a;
+  --md-sys-color-primary: #2563eb;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-surface-variant: #f5f5f5;
+  --md-sys-color-outline: #e5e5e5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto {
+    --md-sys-color-surface: #1a1a1a;
+    --md-sys-color-on-surface: #e5e5e5;
+    --md-sys-color-primary: #60a5fa;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-surface-variant: #2d2d2d;
+    --md-sys-color-outline: #404040;
+  }
+}
