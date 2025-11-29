@@ -40,8 +40,61 @@ export type {
 export * from "./spacing";
 export * from "./layout";
 export * from "./animation";
-export * from "./zIndex";
-export * from "./opacity";
+
+// Explicit exports to avoid naming conflicts between zIndex and opacity
+export {
+  // Z-index exports
+  zIndexTokens,
+  zIndexGroups,
+  componentZIndexTokens,
+  getZIndexClass,
+  getGroupZIndex,
+  getComponentZIndex,
+  createZIndexStack,
+  isValidZIndex,
+  getZIndexValue,
+  isHigherZIndex,
+  isLowerZIndex,
+  getZIndexAbove,
+  getZIndexBelow,
+  getZIndexClasses,
+  getConditionalZIndex,
+  responsiveZIndexTokens,
+  getResponsiveZIndex,
+  zIndexPatterns,
+  validateZIndexLevel,
+  getZIndexError,
+  layoutZIndexOrder,
+  createValidatedZIndexStack,
+  type ZIndexLevel,
+  type ZIndexGroup,
+} from "./zIndex";
+
+export {
+  // Opacity exports
+  opacityTokens,
+  semanticOpacityTokens,
+  stateOpacityTokens,
+  componentOpacityTokens,
+  responsiveOpacityTokens,
+  getOpacityClass,
+  getStateOpacityClass,
+  getComponentOpacityClass,
+  getConditionalOpacity,
+  getInteractiveOpacityClasses,
+  getOpacityTransitionClasses,
+  getSmoothOpacityClasses,
+  getResponsiveOpacityClass,
+  composeOpacityClasses,
+  opacityPatterns,
+  isValidOpacityLevel,
+  getOpacityError,
+  debugOpacityClasses,
+  getDebugOpacityClass,
+  type OpacityLevel,
+  type SemanticOpacity,
+  type ResponsiveBreakpoint as OpacityResponsiveBreakpoint,
+} from "./opacity";
 
 // Token helper functions
 export * from "./helpers";
