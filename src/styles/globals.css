@@ -542,6 +542,30 @@ body {
   background: transparent !important;
 }
 
+/* Dark mode specific code block styling */
+.mdx-editor-dark pre {
+  background: #1a1a1a !important;
+  border-color: #4a4a4a !important;
+}
+
+.mdx-editor-dark pre code,
+.mdx-editor-dark pre code * {
+  color: #e5e5e5 !important;
+}
+
+/* Auto mode dark preference for code blocks */
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto pre {
+    background: #1a1a1a !important;
+    border-color: #4a4a4a !important;
+  }
+
+  .mdx-editor-auto pre code,
+  .mdx-editor-auto pre code * {
+    color: #e5e5e5 !important;
+  }
+}
+
 .mdx-editor-wrapper code {
   font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   font-size: 0.9em;
@@ -553,6 +577,22 @@ body {
   padding: 0.2em 0.4em;
   border-radius: 3px;
   color: var(--md-sys-color-primary) !important;
+}
+
+/* Dark mode inline code */
+.mdx-editor-dark :not(pre) > code {
+  background: #1a1a1a !important;
+  color: #60a5fa !important;
+  border: 1px solid #4a4a4a;
+}
+
+/* Auto mode dark preference for inline code */
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto :not(pre) > code {
+    background: #1a1a1a !important;
+    color: #60a5fa !important;
+    border: 1px solid #4a4a4a;
+  }
 }
 
 /* Tables */
@@ -583,6 +623,72 @@ body {
 
 .mdx-editor-wrapper tr:hover td {
   color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Dark mode specific table styling */
+.mdx-editor-dark table {
+  border-color: #4a4a4a;
+}
+
+.mdx-editor-dark th,
+.mdx-editor-dark td {
+  border-color: #4a4a4a !important;
+  color: #d4d4d4 !important;
+}
+
+.mdx-editor-dark th {
+  background: #1a1a1a !important;
+  color: #f0f0f0 !important;
+}
+
+.mdx-editor-dark tbody tr {
+  background: #1e1e1e;
+}
+
+.mdx-editor-dark tbody tr:nth-child(even) {
+  background: #252525;
+}
+
+.mdx-editor-dark tr:hover {
+  background: #2a2a2a !important;
+}
+
+.mdx-editor-dark tr:hover td {
+  color: #e5e5e5 !important;
+}
+
+/* Auto mode dark preference for tables */
+@media (prefers-color-scheme: dark) {
+  .mdx-editor-auto table {
+    border-color: #4a4a4a;
+  }
+
+  .mdx-editor-auto th,
+  .mdx-editor-auto td {
+    border-color: #4a4a4a !important;
+    color: #d4d4d4 !important;
+  }
+
+  .mdx-editor-auto th {
+    background: #1a1a1a !important;
+    color: #f0f0f0 !important;
+  }
+
+  .mdx-editor-auto tbody tr {
+    background: #1e1e1e;
+  }
+
+  .mdx-editor-auto tbody tr:nth-child(even) {
+    background: #252525;
+  }
+
+  .mdx-editor-auto tr:hover {
+    background: #2a2a2a !important;
+  }
+
+  .mdx-editor-auto tr:hover td {
+    color: #e5e5e5 !important;
+  }
 }
 
 /* Horizontal Rules */
