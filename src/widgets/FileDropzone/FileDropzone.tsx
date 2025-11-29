@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState, useId } from "react";
 import { bytesToString, acceptsToExtensions } from "../../utils/file";
 import { Icon } from "../../components/Icon";
-import { getComponentVariant, getTypographyForSize } from "../../tokens";
+import { getComponentVariant, getTypographyForSize, getPaddingClasses, getSpacingClasses } from "../../tokens";
 
 export type FileDropzoneProps = {
   accepts: string[];
@@ -38,6 +38,8 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
   const variantTokens = getComponentVariant(variant);
   const titleTypography = getTypographyForSize("lg");
   const descriptionTypography = getTypographyForSize("sm");
+  const paddingClasses = getPaddingClasses('lg');
+  const spacingClasses = getSpacingClasses('normal');
 
   const dropzoneIconSize = 48;
 
@@ -95,7 +97,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       [
         "group cursor-pointer outline-none",
         "flex w-full flex-col items-center justify-center",
-        "gap-3 p-6",
+        `${spacingClasses.gap.compact} ${paddingClasses.padding}`,
         "rounded-lg border-2 border-dashed",
         variantTokens.border,
         variantTokens.background,
@@ -105,7 +107,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       ]
         .filter(Boolean)
         .join(" "),
-    [isDragging, className, variantTokens],
+    [isDragging, className, variantTokens, spacingClasses, paddingClasses],
   );
 
   return (

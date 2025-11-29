@@ -35,3 +35,13 @@ export type {
   SemanticTypography,
   ComponentTypography,
 } from "./typography";
+
+// New token system exports
+export * from "./spacing";
+export * from "./layout";
+export * from "./animation";
+export * from "./zIndex";
+export * from "./opacity";
+
+// Token helper functions
+export * from "./helpers";

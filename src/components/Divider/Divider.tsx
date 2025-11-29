@@ -1,24 +1,31 @@
 
-import { getComponentVariant } from '../../tokens';
-import { getAdaptiveVariantClassesString } from '../../tokens/color';
+import { getComponentVariant, getAdaptiveVariantClassesString, getTypographyToken } from '../../tokens';
+import { getPaddingClasses } from '../../tokens';
 
 export interface DividerProps {
   text?: string;
   mode?: 'dark' | 'light' | 'auto';
   className?: string;
+  spacing?: 'sm' | 'compact' | 'normal' | 'relaxed';
 }
 
 const Divider = ({
   text = 'OR',
   mode = 'auto',
-  className = ''
+  className = '',
+  spacing = 'normal'
 }: DividerProps) => {
+  // Get typography tokens for consistent text styling
+  const typographyToken = getTypographyToken('label');
+
   // Determine if we should use adaptive mode
   const isAdaptive = mode === 'auto';
   const effectiveVariant = mode === 'auto' ? undefined : mode;
 
   const surfaceVariant = effectiveVariant === 'dark' ? 'surface-dark' : 'surface-light';
   const variantTokens = getComponentVariant(surfaceVariant);
+
+  const paddingClasses = getPaddingClasses(spacing as 'none' | 'xs' | 'sm' | 'compact' | 'normal' | 'relaxed' | 'xl' | '2xl' | '3xl');
 
   if (!text) {
     return (
@@ -38,9 +45,10 @@ const Divider = ({
       <div className="absolute inset-0 flex items-center">
         <div className={`w-full border-t ${isAdaptive ? 'border-gray-200 dark:border-gray-800' : variantTokens.border}`} />
       </div>
-      <div className="relative flex justify-center text-sm">
+      <div className="relative flex justify-center">
         <span className={`
-          px-4
+          ${paddingClasses}
+          ${typographyToken.className}
           ${isAdaptive ? getAdaptiveVariantClassesString('card') : `${variantTokens.background} ${variantTokens.text}`}
         `}>
           {text}

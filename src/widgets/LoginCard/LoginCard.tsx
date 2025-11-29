@@ -9,7 +9,7 @@ import Divider from '../../components/Divider';
 import InlineError from '../../components/InlineError';
 import { Icon } from '../../components/Icon';
 import { Text } from '../../components/Text';
-import { getAdaptiveVariantClassesString } from '../../tokens/color';
+import { getAdaptiveVariantClassesString, getSpacingClasses } from '../../tokens';
 
 export type LoginCardStep = 'email' | 'pin';
 
@@ -73,6 +73,7 @@ const LoginCard = ({
   onEmailChange,
 }: LoginCardProps) => {
   const [email, setEmail] = useState(emailValue);
+  const spacingClasses = getSpacingClasses('normal');
 
   // Determine if we should use adaptive mode
   const isAdaptive = mode === 'auto';
@@ -103,11 +104,11 @@ const LoginCard = ({
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-6">
+    <div className={`flex min-h-screen items-center justify-center ${spacingClasses.padding.xl}`}>
       <Card mode={effectiveVariant} padding="lg" className="w-full max-w-md">
         {/* Logo and Header */}
-        <div className="flex flex-col gap-7">
-          <div className="flex flex-col items-center gap-7">
+        <div className={`flex flex-col ${spacingClasses.gap.normal}`}>
+          <div className={`flex flex-col items-center ${spacingClasses.gap.normal}`}>
             <Icon
               name="logo"
               size={160}
@@ -134,7 +135,7 @@ const LoginCard = ({
           {/* Email Form */}
           {step === 'email' && (
             <form onSubmit={handleEmailSubmit} className="w-full">
-              <div className="flex flex-col gap-7">
+              <div className={`flex flex-col ${spacingClasses.gap.normal}`}>
                 <div className="w-full">
                   <Input
                     type="email"
@@ -168,7 +169,7 @@ const LoginCard = ({
 
           {/* PIN Form */}
           {step === 'pin' && (
-            <div className="flex flex-col gap-7 w-full">
+            <div className={`flex flex-col ${spacingClasses.gap.normal} w-full`}>
               <div className="w-full">
                 <div className="flex justify-center">
                   <InputPin
@@ -180,7 +181,7 @@ const LoginCard = ({
                   />
                 </div>
                 {error && (
-                  <InlineError mode={effectiveVariant} className="mt-4 text-center">
+                  <InlineError mode={effectiveVariant} className={`${spacingClasses.margin.xl} text-center`}>
                     {error}
                   </InlineError>
                 )}

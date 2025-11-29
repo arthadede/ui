@@ -2,7 +2,7 @@
 
 import React from "react";
 import Icon from "../Icon/Icon";
-import { getSizeClasses, getTypographyForSize, getAdaptiveVariantClassesString, type ComponentSize } from "../../tokens";
+import { getSizeClasses, getTypographyForSize, getAdaptiveVariantClassesString, getSpacingClasses, type ComponentSize } from "../../tokens";
 
 export type BreadcrumbItem = {
   label: string;
@@ -31,6 +31,7 @@ export default function Breadcrumbs({
   const sizeClasses = getSizeClasses(size);
   const typographyClasses = getTypographyForSize(size);
   const variantClasses = getAdaptiveVariantClassesString('icon');
+  const spacingClasses = getSpacingClasses('compact');
 
   const baseClasses = "flex items-center overflow-x-auto";
   const itemClasses = "flex items-center whitespace-nowrap transition-colors";
@@ -76,7 +77,7 @@ export default function Breadcrumbs({
               )}
 
               {!isLast && (
-                <span className="mx-2" aria-hidden="true">
+                <span className={`${spacingClasses.margin.xs}`} aria-hidden="true">
                   <Icon
                     name="chevron-right"
                     size={sizeClasses.iconSize}

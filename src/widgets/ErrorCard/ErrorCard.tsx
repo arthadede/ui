@@ -2,7 +2,7 @@
 import Card from '../../components/Card/Card';
 import Text from '../../components/Text/Text';
 import Button from '../../components/Button/Button';
-import { getAdaptiveVariantClassesString } from '../../tokens/color';
+import { getAdaptiveVariantClassesString, getSpacingClasses } from '../../tokens';
 
 export interface ErrorCardProps {
   mode?: 'dark' | 'light' | 'auto';
@@ -21,6 +21,7 @@ const ErrorCard = ({
   homeButtonText = 'Back to Home',
   className = '',
 }: ErrorCardProps) => {
+  const spacingClasses = getSpacingClasses('normal');
   // Determine if we should use adaptive mode
   const isAdaptive = mode === 'auto';
   const effectiveVariant = mode === 'auto' ? undefined : mode;
@@ -41,7 +42,7 @@ const ErrorCard = ({
         shadow="lg"
         className="max-w-md w-full mx-4"
       >
-        <div className="flex flex-col items-center text-center space-y-4">
+        <div className={`flex flex-col items-center text-center ${spacingClasses.gap.normal}`}>
           {/* 404 Display */}
           <span className={`text-8xl font-bold ${isAdaptive ? getAdaptiveVariantClassesString('card') : (effectiveVariant === 'dark' ? 'text-white' : 'text-black')}`}>
             404

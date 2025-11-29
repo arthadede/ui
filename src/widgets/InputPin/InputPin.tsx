@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '../../components/Input';
-import { type ComponentSize, getSizeClasses } from '../../tokens';
+import { type ComponentSize, getSizeClasses, getSpacingClasses } from '../../tokens';
 
 export type InputPinProps = {
   onChange: (values: string[]) => void;
@@ -21,6 +21,7 @@ const InputPin: React.FC<InputPinProps> = ({
 }) => {
   const inputsRef = React.useRef<Array<HTMLInputElement | null>>([]);
   const sizeClasses = getSizeClasses(size);
+  const spacingClasses = getSpacingClasses('compact');
 
   const [values, setValues] = React.useState<string[]>(() => {
     return Array(length).fill('');
@@ -132,7 +133,7 @@ const InputPin: React.FC<InputPinProps> = ({
   };
 
   return (
-    <div className={`flex gap-2 ${className}`}>
+    <div className={`flex ${spacingClasses.gap.compact} ${className}`}>
       {Array.from({ length }).map((_, i) => (
         <div
           key={i}
