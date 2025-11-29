@@ -1,4 +1,4 @@
-"use client";
+
 
 import React from "react";
 import { getComponentSize, getComponentVariant, getAdaptiveVariantClasses, type ComponentSize } from "../../tokens";
